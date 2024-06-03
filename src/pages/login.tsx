@@ -1,3 +1,11 @@
+/* Notes for items to add:
+- User needs feedback that their login attempt is being submitted
+    - Currently no indication that request was sent to server
+    - Clear the 'Invalid email or password' error message
+    - Add a spinner / dimmed UI that request is being processed
+- Needs registration story
+- Needs forgot password story */
+
 import {
   Form,
   useActionData,
@@ -15,7 +23,7 @@ type FormErrors = {
   password?: string;
 };
 
-export const loader = async () => {
+const loader = async () => {
   // Check local storage for access token
   const accessToken = localStorage.getItem('accessToken');
   if (accessToken) {
@@ -29,7 +37,7 @@ export const loader = async () => {
   return null;
 };
 
-export const action = async ({ request }: { request: Request }) => {
+const action = async ({ request }: { request: Request }) => {
   const form = await request.formData();
   const email = form.get('email') as string;
   const password = form.get('password') as string;
@@ -60,8 +68,6 @@ export const action = async ({ request }: { request: Request }) => {
   } else {
     return redirect('/');
   }
-
-  return null;
 };
 
 const LoginPage = () => {
@@ -115,5 +121,8 @@ const LoginPage = () => {
     </div>
   );
 };
+
+LoginPage.loader = loader;
+LoginPage.action = action;
 
 export default LoginPage;
