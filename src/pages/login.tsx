@@ -6,13 +6,43 @@ import {
 } from 'react-router-dom';
 import FormInput from '../components/FormInput';
 import { FormButton } from '../components/FormButton';
+import { authProvider } from '../auth/auth';
+
+type FormErrors = {
+  email?: string;
+  password?: string;
+};
 
 export const action = async ({ request }: { request: Request }) => {
-  const formData = await request.formData();
-  const email = formData.get('email');
-  const password = formData.get('password');
-  console.log(email, password);
-  return { email, password };
+  const form = await request.formData();
+  const email = form.get('email') as string;
+  const password = form.get('password') as string;
+  const errors: FormErrors = {};
+
+  // Validate fields
+  if (typeof email !== 'string' || email.length === 0) {
+    errors.email = 'Email is required';
+  }
+
+  if (typeof password !== 'string' || password.length === 0) {
+    errors.password = 'Password is required';
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return errors;
+  }
+
+  // Validation complete
+
+  // Attempt login with backend
+
+  // try {
+  //   authProvider.signin(email, password);
+  // } catch (e) {
+  //   console.error(e);
+  //   return { error: 'Invalid email or password' };
+  // }
+  return null;
 };
 
 const LoginPage = () => {
@@ -23,7 +53,8 @@ const LoginPage = () => {
   const navigation = useNavigation();
   const isLoggingIn = navigation.formData?.get('email') != null;
 
-  const actionData = useActionData() as { error: string } | undefined;
+  const errors = useActionData() as FormErrors | null;
+  console.log(errors);
 
   return (
     <div className='flex min-h-full flex-col justify-center px-6 py-12 lg:px-8'>
@@ -46,6 +77,7 @@ const LoginPage = () => {
             placeholder='Email'
             autoComplete='email'
           />
+          {errors?.email && <p className='text-red-400'>{errors.email}</p>}
           <FormInput
             id='password'
             type='password'
@@ -53,12 +85,12 @@ const LoginPage = () => {
             placeholder='Password'
             autoComplete='current-password'
           />
+          {errors?.password && (
+            <p className='text-red-400'>{errors.password}</p>
+          )}
           <FormButton type='submit' disabled={isLoggingIn}>
             Sign in
           </FormButton>
-          {actionData && actionData.error ? (
-            <p className='text-red-500'>{actionData.error}</p>
-          ) : null}
         </Form>
       </div>
     </div>
