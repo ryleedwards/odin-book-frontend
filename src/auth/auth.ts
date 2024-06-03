@@ -36,6 +36,7 @@ export const authProvider = {
       }
       this.user = data.user;
       this.isAuthenticated = true;
-    }
+      return true;
+    } else return false;
   },
 };

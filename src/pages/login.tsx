@@ -3,12 +3,14 @@ import {
   useActionData,
   useLocation,
   useNavigation,
+  redirect,
 } from 'react-router-dom';
 import FormInput from '../components/FormInput';
 import { FormButton } from '../components/FormButton';
 import { authProvider } from '../auth/auth';
 
 type FormErrors = {
+  auth?: string;
   email?: string;
   password?: string;
 };
@@ -36,12 +38,15 @@ export const action = async ({ request }: { request: Request }) => {
 
   // Attempt login with backend
 
-  // try {
-  //   authProvider.signin(email, password);
-  // } catch (e) {
-  //   console.error(e);
-  //   return { error: 'Invalid email or password' };
-  // }
+  const successfulLogin: boolean = await authProvider.signin(email, password);
+
+  if (!successfulLogin) {
+    errors.auth = 'Invalid email or password';
+    return errors;
+  } else {
+    return redirect('/');
+  }
+
   return null;
 };
 
@@ -70,6 +75,7 @@ const LoginPage = () => {
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
         <Form method='post' replace className='space-y-6 '>
           <input type='hidden' name='redirectTo' value={from} />
+          {errors?.auth && <p className='text-red-400'>{errors.auth}</p>}
           <FormInput
             id='email'
             type='email'
