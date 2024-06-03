@@ -18,7 +18,7 @@ export const authProvider = {
   user: null as User | null,
   async signin(email: string, password: string) {
     const response: Response = await fetch(
-      `${import.meta.env.BASE_URL}/api/login}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
       {
         method: 'POST',
         headers: {
