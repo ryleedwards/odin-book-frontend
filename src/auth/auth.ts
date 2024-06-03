@@ -29,6 +29,11 @@ export const authProvider = {
     );
     if (response.status === 200) {
       const data: AuthResponse = await response.json();
+      try {
+        localStorage.setItem('accessToken', data.accessToken);
+      } catch (e) {
+        console.error(e);
+      }
       this.user = data.user;
       this.isAuthenticated = true;
     }
