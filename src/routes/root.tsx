@@ -1,4 +1,5 @@
-import { LoaderFunctionArgs, redirect, useLoaderData } from 'react-router-dom';
+import type { LoaderFunctionArgs } from 'react-router-dom';
+import { redirect, useLoaderData } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { authProvider } from '../auth/auth';
 import { User } from '../auth/auth';
