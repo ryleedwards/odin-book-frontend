@@ -15,6 +15,20 @@ type FormErrors = {
   password?: string;
 };
 
+export const loader = async () => {
+  // Check local storage for access token
+  const accessToken = localStorage.getItem('accessToken');
+  if (accessToken) {
+    const status: boolean | undefined = await authProvider.getStatus(
+      accessToken
+    );
+    if (status) {
+      return redirect('/');
+    }
+  }
+  return null;
+};
+
 export const action = async ({ request }: { request: Request }) => {
   const form = await request.formData();
   const email = form.get('email') as string;
@@ -59,7 +73,6 @@ const LoginPage = () => {
   const isLoggingIn = navigation.formData?.get('email') != null;
 
   const errors = useActionData() as FormErrors | null;
-  console.log(errors);
 
   return (
     <div className='flex min-h-full flex-col justify-center px-6 py-12 lg:px-8'>
