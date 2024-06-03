@@ -4,6 +4,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/error-page';
 import Root, { loader as rootLoader } from './routes/root';
+import LoginPage from './pages/login';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <div>login</div>,
+    element: <LoginPage />,
   },
 ]);
 
