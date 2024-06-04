@@ -1,6 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import OdinBookLogo from './OdinbookLogo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
 import { FaSearch, FaBell } from 'react-icons/fa';
 
 import Button from './Button';
@@ -14,6 +23,11 @@ type TopNavProps = {
   links: Link[];
 };
 
+const signOutClickHandler = () => {
+  localStorage.removeItem('accessToken');
+  window.location.reload();
+};
+
 const TopNav = ({ links }: TopNavProps) => {
   const navLinkStyle = 'text-lg font-bold';
   const isPendingnavLinkStyle = 'text-lg';
@@ -24,7 +38,7 @@ const TopNav = ({ links }: TopNavProps) => {
         <div className='flex gap-4'>
           <OdinBookLogo className='w-12 h-12' />
           <Button className=' bg-slate-200 rounded-full'>
-            <FaSearch className='m-1'></FaSearch>
+            <FaSearch className='m-1 text-sm'></FaSearch>
           </Button>
         </div>
         <ul>
@@ -52,10 +66,25 @@ const TopNav = ({ links }: TopNavProps) => {
           <Button className='bg-slate-300 rounded-full'>
             <FaBell />
           </Button>
-          <Avatar>
-            <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-            <AvatarFallback className='bg-slate-300'>BW</AvatarFallback>
-          </Avatar>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage
+                  src='https://github.com/shadcn.png'
+                  alt='@shadcn'
+                />
+                <AvatarFallback className='bg-slate-300'>BW</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem onSelect={signOutClickHandler}>
+                Sign Out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </nav>
     </div>
