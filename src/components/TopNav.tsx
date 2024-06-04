@@ -23,15 +23,16 @@ type TopNavProps = {
   links: Link[];
 };
 
-const signOutClickHandler = () => {
-  localStorage.removeItem('accessToken');
-  window.location.reload();
-};
-
 const TopNav = ({ links }: TopNavProps) => {
   const navLinkStyle = 'text-lg font-bold';
   const isPendingnavLinkStyle = 'text-lg';
   const activeNavLinkStyle = 'text-lg font-bold underline ';
+
+  const signOutClickHandler = () => {
+    localStorage.removeItem('accessToken');
+    window.location.reload();
+  };
+
   return (
     <div id='top-nav' className=''>
       <nav className='flex p-2 bg-slate-100 justify-between items-center'>
