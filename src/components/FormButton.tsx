@@ -2,7 +2,7 @@ import React, { ComponentPropsWithoutRef } from 'react';
 
 interface FormButtonProps extends ComponentPropsWithoutRef<'button'> {
   className?: string;
-  children: React.ReactNode;
+  children: React.ReactNode | React.ReactNode[];
   onClick?: React.MouseEventHandler;
 }
 

@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import { authProvider } from '../auth/auth';
 import { User } from '../auth/auth';
 
-export async function loader({ request }: LoaderFunctionArgs) {
+async function loader({ request }: LoaderFunctionArgs) {
   if (!authProvider.isAuthenticated) {
     // Check local storage for access token
 
@@ -28,7 +28,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return { user: authProvider.user };
 }
 
-const Root: React.FC = () => {
+const Root = () => {
   const { user } = useLoaderData() as { user: User | null };
   return (
     <>
@@ -41,5 +41,7 @@ const Root: React.FC = () => {
     </>
   );
 };
+
+Root.loader = loader;
 
 export default Root;
