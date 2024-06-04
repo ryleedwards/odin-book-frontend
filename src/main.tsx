@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/error-page';
-import Root, { loader as rootLoader } from './routes/root';
+import Root from './routes/root';
+import LoginPage from './pages/login';
 
 const router = createBrowserRouter([
   {
@@ -11,12 +12,14 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     errorElement: <ErrorPage />,
-    loader: rootLoader,
+    loader: Root.loader,
     children: [],
   },
   {
     path: '/login',
-    element: <div>login</div>,
+    action: LoginPage.action,
+    loader: LoginPage.loader,
+    element: <LoginPage />,
   },
 ]);
 

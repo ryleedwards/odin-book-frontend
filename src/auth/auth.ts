@@ -18,7 +18,7 @@ export const authProvider = {
   user: null as User | null,
   async signin(email: string, password: string) {
     const response: Response = await fetch(
-      `${import.meta.env.BASE_URL}/api/login}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
       {
         method: 'POST',
         headers: {
@@ -29,8 +29,39 @@ export const authProvider = {
     );
     if (response.status === 200) {
       const data: AuthResponse = await response.json();
+      try {
+        localStorage.setItem('accessToken', data.accessToken);
+      } catch (e) {
+        console.error(e);
+      }
       this.user = data.user;
       this.isAuthenticated = true;
+      return true;
+    } else return false;
+  },
+  async getStatus(accessToken: string) {
+    try {
+      const response: Response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/status`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data: AuthResponse = await response.json();
+        this.user = data.user;
+        this.isAuthenticated = true;
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      console.error(e);
     }
   },
 };
