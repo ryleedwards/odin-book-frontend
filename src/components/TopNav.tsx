@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useRouteLoaderData } from 'react-router-dom';
 import OdinBookLogo from './OdinbookLogo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -13,6 +13,7 @@ import {
 import { FaSearch, FaBell } from 'react-icons/fa';
 
 import Button from './Button';
+import { User } from '@/auth/auth';
 
 type Link = {
   to: string;
@@ -27,6 +28,8 @@ const TopNav = ({ links }: TopNavProps) => {
   const navLinkStyle = 'text-lg font-bold';
   const isPendingnavLinkStyle = 'text-lg';
   const activeNavLinkStyle = 'text-lg font-bold underline ';
+
+  const { user } = useRouteLoaderData('root') as { user: User | null };
 
   const signOutClickHandler = () => {
     localStorage.removeItem('accessToken');
@@ -78,7 +81,7 @@ const TopNav = ({ links }: TopNavProps) => {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{user ? user.name : ''}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem onSelect={signOutClickHandler}>
