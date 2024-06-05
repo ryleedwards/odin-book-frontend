@@ -8,7 +8,7 @@ export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
 }
 
 const Button = ({ className, onClick, children, ...rest }: ButtonProps) => {
-  const style: string = 'px-3 py-2 rounded-md font-semibold';
+  const style: string = 'px-3 py-2 font-semibold';
   return (
     <button {...rest} className={`${className} ${style}`} onClick={onClick}>
       {children}

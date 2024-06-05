@@ -39,10 +39,10 @@ const TopNav = ({ links }: TopNavProps) => {
   return (
     <div id='top-nav' className=''>
       <nav className='flex p-2 bg-slate-100 justify-between items-center'>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 items-center'>
           <OdinBookLogo className='w-12 h-12' />
-          <Button className=' bg-slate-200 rounded-full'>
-            <FaSearch className='m-1 text-sm'></FaSearch>
+          <Button className=' bg-slate-200 hover:bg-slate-300 rounded-full w-10 h-10'>
+            <FaSearch className='text-sm'></FaSearch>
           </Button>
         </div>
         <ul>
@@ -66,10 +66,11 @@ const TopNav = ({ links }: TopNavProps) => {
             })}
           </li>
         </ul>
-        <div className='flex gap-4'>
-          <Button className='bg-slate-300 rounded-full'>
+        <div className='flex gap-4 items-center '>
+          <Button className='bg-slate-200 hover:bg-slate-300 rounded-full h-10 w-10 flex justify-center items-center'>
             <FaBell />
           </Button>
+
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
