@@ -1,6 +1,7 @@
 import Feed from '@/components/Feed';
 import { authProvider } from '@/auth/auth';
 import { useLoaderData } from 'react-router';
+import { Post as PostType } from '@/types/Post';
 
 const loader = async () => {
   let accessToken = null;
@@ -28,11 +29,11 @@ const loader = async () => {
 };
 
 const Home = () => {
-  const posts = useLoaderData();
+  const posts = useLoaderData() as PostType[] | null;
   console.log(posts);
   return (
     <div className='flex bg-slate-200 p-10 h-full'>
-      <Feed className='bg-white' />
+      <Feed className='bg-white' posts={posts} />
     </div>
   );
 };

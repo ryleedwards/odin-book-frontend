@@ -1,20 +1,21 @@
+import { Post as PostType } from '../types/Post';
+import Post from './Post';
+
 type FeedProps = {
   className?: string;
   children?: React.ReactNode;
+  posts: PostType[] | null;
 };
 
-const loader = () => {
-  return null;
-};
-
-const Feed = ({ className }: FeedProps) => {
+const Feed = ({ className, posts }: FeedProps) => {
+  console.log(posts);
   return (
     <div className={`${className} bg-slate-500 w-full`}>
-      <h1>Feed Display</h1>
+      {posts?.map((post) => (
+        <Post key={post.id} post={post} />
+      ))}
     </div>
   );
 };
-
-Feed.loader = loader;
 
 export default Feed;
