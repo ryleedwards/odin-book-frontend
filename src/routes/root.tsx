@@ -4,10 +4,6 @@ import Layout from '../components/Layout';
 import { authProvider } from '../auth/auth';
 import { User } from '../auth/auth';
 
-type RootProps = {
-  children?: React.ReactNode | React.ReactNode[];
-};
-
 async function loader({ request }: LoaderFunctionArgs) {
   if (!authProvider.isAuthenticated) {
     // Check local storage for access token
@@ -33,7 +29,9 @@ async function loader({ request }: LoaderFunctionArgs) {
 }
 
 const Root = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { user } = useLoaderData() as { user: User | null };
+
   return (
     <>
       <Layout>
