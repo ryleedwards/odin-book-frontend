@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import { User } from '@/types/User';
 
