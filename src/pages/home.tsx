@@ -1,5 +1,4 @@
 import Feed from '@/components/Feed';
-import { authProvider } from '@/auth/auth';
 import { useLoaderData } from 'react-router';
 import { Post as PostType } from '@/types/Post';
 
