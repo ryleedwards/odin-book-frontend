@@ -8,11 +8,10 @@ type Props = {
 const Layout = (props: Props) => {
   const topNavLinks = [{ to: '/', displayName: 'Home' }];
   return (
-    <div>
+    <>
       <TopNav links={topNavLinks} />
-      <h1>Layout</h1>
       {props.children}
-    </div>
+    </>
   );
 };
 

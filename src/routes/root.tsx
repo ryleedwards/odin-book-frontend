@@ -1,8 +1,12 @@
 import type { LoaderFunctionArgs } from 'react-router-dom';
-import { redirect, useLoaderData } from 'react-router-dom';
+import { redirect, useLoaderData, Outlet } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { authProvider } from '../auth/auth';
 import { User } from '../auth/auth';
+
+type RootProps = {
+  children?: React.ReactNode | React.ReactNode[];
+};
 
 async function loader({ request }: LoaderFunctionArgs) {
   if (!authProvider.isAuthenticated) {
@@ -33,10 +37,7 @@ const Root = () => {
   return (
     <>
       <Layout>
-        <>
-          <h1>Root</h1>
-          <p>The logged in user is: {user ? user.email : 'null'}</p>
-        </>
+        <Outlet />
       </Layout>
     </>
   );
