@@ -30,11 +30,7 @@ const loader = async () => {
 const Home = () => {
   const posts = useLoaderData() as PostType[] | null;
   console.log(posts);
-  return (
-    <div className='flex bg-slate-200 p-10 h-full'>
-      <Feed className='bg-white' posts={posts} />
-    </div>
-  );
+  return <Feed className='bg-white md:max-w-2xl' posts={posts} />;
 };
 
 Home.loader = loader;
