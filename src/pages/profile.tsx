@@ -1,5 +1,6 @@
-import { useParams, LoaderFunction, Params } from 'react-router';
+import { LoaderFunction, Params, useLoaderData } from 'react-router';
 import { fetchProfile } from '@/api/profile';
+import { Profile as ProfileType } from '@/types/Profile';
 
 const loader: LoaderFunction = async ({ params }: { params: Params }) => {
   const { userId } = params;
@@ -15,8 +16,9 @@ const loader: LoaderFunction = async ({ params }: { params: Params }) => {
 };
 
 const Profile = () => {
-  const { userId } = useParams();
-  return <div>{userId ?? userId}</div>;
+  const profile = useLoaderData() as ProfileType | null;
+  console.log(profile);
+  return <div>{profile?.user.name}</div>;
 };
 
 Profile.loader = loader;
