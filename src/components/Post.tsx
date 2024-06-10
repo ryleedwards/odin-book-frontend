@@ -1,5 +1,5 @@
 import { Post as PostType } from '@/types/Post';
-import UserAvatar from './UserAvatar';
+import UserSmall from './UserSmall';
 
 type PostProps = {
   post: PostType;
@@ -8,10 +8,7 @@ type PostProps = {
 const Post = ({ post }: PostProps) => {
   return (
     <div className='flex flex-col gap-2 px-4 py-6 rounded-sm bg-white'>
-      <div className='flex gap-2 items-center'>
-        <UserAvatar user={post.author} />
-        <h4 className='font-bold'>{post.author.name}</h4>
-      </div>
+      <UserSmall user={post.author} />
       <p>{post.content}</p>
     </div>
   );
