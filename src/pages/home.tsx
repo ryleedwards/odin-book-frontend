@@ -30,7 +30,7 @@ const loader = async () => {
 const Home = () => {
   const posts = useLoaderData() as PostType[] | null;
   console.log(posts);
-  return <Feed className='bg-white md:max-w-2xl' posts={posts} />;
+  return <Feed className='md:max-w-2xl' posts={posts} />;
 };
 
 Home.loader = loader;
