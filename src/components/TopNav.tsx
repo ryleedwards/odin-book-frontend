@@ -38,7 +38,7 @@ const TopNav = ({ links }: TopNavProps) => {
 
   return (
     <div id='top-nav' className=''>
-      <nav className='flex p-2 bg-slate-100 justify-between items-center'>
+      <nav className='flex p-2  justify-between items-center'>
         <div className='flex gap-4 items-center'>
           <OdinBookLogo className='w-12 h-12' />
           <Button className=' bg-slate-200 hover:bg-slate-300 rounded-full w-10 h-10'>

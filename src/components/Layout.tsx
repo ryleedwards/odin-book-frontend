@@ -10,7 +10,9 @@ const Layout = (props: Props) => {
   return (
     <>
       <TopNav links={topNavLinks} />
-      {props.children}
+      <div id='main' className='flex justify-center px-8 py-4 bg-slate-100'>
+        {props.children}
+      </div>
     </>
   );
 };
