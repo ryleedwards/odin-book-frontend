@@ -6,6 +6,7 @@ import ErrorPage from './pages/error-page';
 import Root from './routes/root';
 import LoginPage from './pages/login';
 import Home from './pages/home';
+import Profile from './pages/profile';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,17 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />,
         loader: Home.loader,
+      },
+      {
+        path: '/users',
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: ':userId',
+            loader: Profile.loader,
+            element: <Profile />,
+          },
+        ],
       },
     ],
   },

@@ -8,13 +8,10 @@ type FeedProps = {
 };
 
 const Feed = ({ className, posts }: FeedProps) => {
-  console.log(posts);
   return (
     <div id='feed' className={`${className} w-full flex flex-col gap-2`}>
       {posts?.map((post) => (
-        <>
-          <Post key={post.id} post={post} />
-        </>
+        <Post key={post.id} post={post} />
       ))}
     </div>
   );

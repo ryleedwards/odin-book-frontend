@@ -1,3 +1,5 @@
+import { getAccessToken } from '@/api/localStorage';
+
 export interface User {
   id: number;
   createdAt: string;
@@ -64,4 +66,13 @@ export const authProvider = {
       console.error(e);
     }
   },
+};
+
+export const getAuthHeaders = () => {
+  const token = getAccessToken();
+  if (token) {
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${token}`);
+    return headers;
+  } else throw new Error('No access token found');
 };
