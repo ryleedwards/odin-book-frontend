@@ -21,9 +21,9 @@ export const ProfileDetail = ({ profile, className }: ProfileDetailProps) => {
       <Button className='bg-blue-600 hover:bg-blue-700 text-white rounded-md'>
         Follow
       </Button>
-      <div id='profile-about' className='flex flex-col items-center'>
+      <div id='profile-about' className='flex flex-col items-center '>
         <p className='text-gray-600'>About</p>
-        {profile?.about}
+        <p className='text-center'>{profile?.about}</p>
       </div>
     </div>
   );
