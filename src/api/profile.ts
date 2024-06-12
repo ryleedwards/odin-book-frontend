@@ -26,3 +26,21 @@ export const fetchUserPosts = async (userId: number) => {
   }
   return response.json();
 };
+
+export const fetchIsFollowed = async (
+  userId: number,
+  currentUserId: number
+) => {
+  const headers = getAuthHeaders();
+  const request = new Request(
+    `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/users/${userId}/follow?currentUserId=${currentUserId}`,
+    { headers: headers }
+  );
+  const response = await fetch(request);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+};
