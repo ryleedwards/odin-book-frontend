@@ -1,4 +1,4 @@
-import { NavLink, useRouteLoaderData } from 'react-router-dom';
+import { Link, NavLink, useRouteLoaderData } from 'react-router-dom';
 import OdinBookLogo from './OdinbookLogo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -40,7 +40,10 @@ const TopNav = ({ links }: TopNavProps) => {
     <div id='top-nav' className=''>
       <nav className='flex p-2  justify-between items-center'>
         <div className='flex gap-4 items-center'>
-          <OdinBookLogo className='w-12 h-12' />
+          <Link to={'/'}>
+            <OdinBookLogo className='w-12 h-12' />
+          </Link>
+
           <Button className=' bg-slate-200 hover:bg-slate-300 rounded-full w-10 h-10'>
             <FaSearch className='text-sm'></FaSearch>
           </Button>
