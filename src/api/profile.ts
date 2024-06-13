@@ -49,9 +49,7 @@ export const createFollow = async (userId: number) => {
   const headers = getAuthHeaders();
   headers.append('Content-Type', 'application/json');
   const currentUserId = authProvider.user?.id;
-  console.log('creating follow');
-  console.log(`currentUserId: ${currentUserId}`);
-  console.log(`userId: ${userId}`);
+
   const request = new Request(
     `${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}/follow`,
     {
@@ -61,7 +59,6 @@ export const createFollow = async (userId: number) => {
     }
   );
   const response = await fetch(request);
-  console.log(response);
   if (!response.ok) {
     throw new Error(response.statusText);
   }
@@ -72,9 +69,7 @@ export const deleteFollow = async (userId: number) => {
   const headers = getAuthHeaders();
   headers.append('Content-Type', 'application/json');
   const currentUserId = authProvider.user?.id;
-  console.log('deleting follow');
-  console.log(`currentUserId: ${currentUserId}`);
-  console.log(`userId: ${userId}`);
+
   const request = new Request(
     `${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}/follow`,
     {
