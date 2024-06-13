@@ -17,6 +17,9 @@ export const ProfileDetail = ({
   isFollowed,
 }: ProfileDetailProps) => {
   const [btnText, setBtnText] = useState('');
+  // set initial button text based on isFollowed prop
+  //     ( when this was determined in initial useState call, would experience bug
+  //     where button text would not be set correctly after refresh )
   useEffect(() => {
     setBtnText(isFollowed ? 'Following' : 'Follow');
   }, [isFollowed]);
