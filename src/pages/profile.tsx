@@ -4,14 +4,21 @@ import {
   useLoaderData,
   useOutletContext,
 } from 'react-router';
-import { fetchIsFollowed, fetchProfile, fetchUserPosts } from '@/api/profile';
+import {
+  createFollow,
+  deleteFollow,
+  fetchIsFollowed,
+  fetchProfile,
+  fetchUserPosts,
+} from '@/api/profile';
 import { Profile as ProfileType } from '@/types/Profile';
 import { ProfileDetail } from '@/components/ProfileDetail';
 import Feed from '@/components/Feed';
 import { Post } from '@/types/Post';
-import { ActionFunction } from 'react-router-dom';
+import { ActionFunction, json } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { User } from '@/types/User';
+import { authProvider } from '@/auth/auth';
 
 type LoaderData = {
   userId: string;
@@ -28,6 +35,23 @@ const action: ActionFunction = async ({
 }) => {
   const { userId } = params;
   const formData = await request.formData();
+  // const intent = formData.get('intent');
+  // if (intent === 'follow') {
+  //   if (!userId || !authProvider.user?.id) {
+  //     throw new Error('Issue gathering user ID parameters');
+  //   }
+  //   const { isFollowed } = await fetchIsFollowed(
+  //     parseInt(userId),
+  //     authProvider.user?.id
+  //   );
+  //   if (isFollowed) {
+  //     await deleteFollow(parseInt(userId));
+  //   } else {
+  //     await createFollow(parseInt(userId));
+  //   }
+  //   return json({ isFollowed: !isFollowed });
+  // }
+  // throw json({ message: 'Invalid intent' }, { status: 400 });
   return { ok: true };
 };
 
@@ -59,10 +83,18 @@ const Profile = () => {
       if (!user) return;
       const response = await fetchIsFollowed(parseInt(userId), user.id);
       setIsFollowed(response.isFollowed);
-      console.log(response.isFollowed);
     }
     checkIsFollowed();
   }, [user, userId]);
+
+  const handleFollowToggle = async () => {
+    if (isFollowed) {
+      await deleteFollow(parseInt(userId));
+    } else {
+      await createFollow(parseInt(userId));
+    }
+    setIsFollowed(!isFollowed);
+  };
 
   return (
     <div className='flex flex-col gap-4'>
@@ -70,6 +102,7 @@ const Profile = () => {
         profile={profile}
         className='md:max-w-2xl'
         isFollowed={isFollowed}
+        onFollowToggle={handleFollowToggle}
       />
       <h3 className='text-xl font-bold ml-4'>Posts</h3>
       <Feed posts={userPosts} />

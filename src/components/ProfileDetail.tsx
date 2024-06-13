@@ -9,12 +9,14 @@ type ProfileDetailProps = {
   className?: string;
   children?: React.ReactNode;
   isFollowed: boolean;
+  onFollowToggle: () => void;
 };
 
 export const ProfileDetail = ({
   profile,
   className,
   isFollowed,
+  onFollowToggle,
 }: ProfileDetailProps) => {
   const [btnText, setBtnText] = useState('');
   // set initial button text based on isFollowed prop
@@ -34,7 +36,7 @@ export const ProfileDetail = ({
       )}
       <Form method='post'>
         <Button
-          type='submit'
+          onClick={onFollowToggle}
           className='bg-blue-600 hover:bg-blue-700 text-white rounded-md'
           onMouseEnter={() => setBtnText(isFollowed ? 'Unfollow' : 'Follow')}
           onMouseLeave={() => setBtnText(isFollowed ? 'Following' : 'Follow')}
