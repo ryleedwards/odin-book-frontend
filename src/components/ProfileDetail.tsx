@@ -1,17 +1,25 @@
 import { Profile } from '@/types/Profile';
 import ProfileImage from './ProfileImage';
 import Button from '@/components/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form } from 'react-router-dom';
 
 type ProfileDetailProps = {
   profile: Profile | null;
   className?: string;
   children?: React.ReactNode;
+  isFollowed: boolean;
 };
 
-export const ProfileDetail = ({ profile, className }: ProfileDetailProps) => {
-  const [isFollowed, setIsFollowed] = useState('');
+export const ProfileDetail = ({
+  profile,
+  className,
+  isFollowed,
+}: ProfileDetailProps) => {
+  const [btnText, setBtnText] = useState('');
+  useEffect(() => {
+    setBtnText(isFollowed ? 'Following' : 'Follow');
+  }, [isFollowed]);
   return (
     <div
       id='profile-detail'
@@ -25,8 +33,10 @@ export const ProfileDetail = ({ profile, className }: ProfileDetailProps) => {
         <Button
           type='submit'
           className='bg-blue-600 hover:bg-blue-700 text-white rounded-md'
+          onMouseEnter={() => setBtnText(isFollowed ? 'Unfollow' : 'Follow')}
+          onMouseLeave={() => setBtnText(isFollowed ? 'Following' : 'Follow')}
         >
-          Follow
+          {btnText}
         </Button>
       </Form>
 

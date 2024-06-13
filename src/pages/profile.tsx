@@ -66,7 +66,11 @@ const Profile = () => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <ProfileDetail profile={profile} className='md:max-w-2xl' />
+      <ProfileDetail
+        profile={profile}
+        className='md:max-w-2xl'
+        isFollowed={isFollowed}
+      />
       <h3 className='text-xl font-bold ml-4'>Posts</h3>
       <Feed posts={userPosts} />
     </div>
