@@ -15,10 +15,9 @@ import { Profile as ProfileType } from '@/types/Profile';
 import { ProfileDetail } from '@/components/ProfileDetail';
 import Feed from '@/components/Feed';
 import { Post } from '@/types/Post';
-import { ActionFunction, json } from 'react-router-dom';
+import { ActionFunction } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { User } from '@/types/User';
-import { authProvider } from '@/auth/auth';
 
 type LoaderData = {
   userId: string;
@@ -26,15 +25,7 @@ type LoaderData = {
   userPosts: Post[];
 };
 
-const action: ActionFunction = async ({
-  params,
-  request,
-}: {
-  params: Params;
-  request: Request;
-}) => {
-  const { userId } = params;
-  const formData = await request.formData();
+const action: ActionFunction = async () => {
   return { ok: true };
 };
 
