@@ -1,13 +1,32 @@
-import { LoaderFunction, Params, useLoaderData } from 'react-router';
-import { fetchProfile, fetchUserPosts } from '@/api/profile';
+import {
+  LoaderFunction,
+  Params,
+  useLoaderData,
+  useOutletContext,
+} from 'react-router';
+import {
+  createFollow,
+  deleteFollow,
+  fetchIsFollowed,
+  fetchProfile,
+  fetchUserPosts,
+} from '@/api/profile';
 import { Profile as ProfileType } from '@/types/Profile';
 import { ProfileDetail } from '@/components/ProfileDetail';
 import Feed from '@/components/Feed';
 import { Post } from '@/types/Post';
+import { ActionFunction } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { User } from '@/types/User';
 
 type LoaderData = {
+  userId: string;
   profile: ProfileType;
   userPosts: Post[];
+};
+
+const action: ActionFunction = async () => {
+  return { ok: true };
 };
 
 const loader: LoaderFunction = async ({ params }: { params: Params }) => {
@@ -22,19 +41,43 @@ const loader: LoaderFunction = async ({ params }: { params: Params }) => {
     if (!profile || !userPosts) {
       throw new Response('Profile not found', { status: 404 });
     }
-    return { profile, userPosts } as LoaderData;
+    return { userId, profile, userPosts } as LoaderData;
   } catch (e) {
     throw new Response('Profile not found', { status: 404 });
   }
 };
 
 const Profile = () => {
-  const { profile, userPosts } = useLoaderData() as LoaderData;
-  console.log(profile);
-  console.log(userPosts);
+  const { userId, profile, userPosts } = useLoaderData() as LoaderData;
+  const { user } = useOutletContext() as { user: User | null };
+  const [isFollowed, setIsFollowed] = useState(false);
+
+  useEffect(() => {
+    async function checkIsFollowed() {
+      if (!user) return;
+      const response = await fetchIsFollowed(parseInt(userId), user.id);
+      setIsFollowed(response.isFollowed);
+    }
+    checkIsFollowed();
+  }, [user, userId]);
+
+  const handleFollowToggle = async () => {
+    if (isFollowed) {
+      await deleteFollow(parseInt(userId));
+    } else {
+      await createFollow(parseInt(userId));
+    }
+    setIsFollowed(!isFollowed);
+  };
+
   return (
     <div className='flex flex-col gap-4'>
-      <ProfileDetail profile={profile} className='md:max-w-2xl' />
+      <ProfileDetail
+        profile={profile}
+        className='md:max-w-2xl'
+        isFollowed={isFollowed}
+        onFollowToggle={handleFollowToggle}
+      />
       <h3 className='text-xl font-bold ml-4'>Posts</h3>
       <Feed posts={userPosts} />
     </div>
@@ -42,5 +85,6 @@ const Profile = () => {
 };
 
 Profile.loader = loader;
+Profile.action = action;
 
 export default Profile;
