@@ -35,23 +35,6 @@ const action: ActionFunction = async ({
 }) => {
   const { userId } = params;
   const formData = await request.formData();
-  // const intent = formData.get('intent');
-  // if (intent === 'follow') {
-  //   if (!userId || !authProvider.user?.id) {
-  //     throw new Error('Issue gathering user ID parameters');
-  //   }
-  //   const { isFollowed } = await fetchIsFollowed(
-  //     parseInt(userId),
-  //     authProvider.user?.id
-  //   );
-  //   if (isFollowed) {
-  //     await deleteFollow(parseInt(userId));
-  //   } else {
-  //     await createFollow(parseInt(userId));
-  //   }
-  //   return json({ isFollowed: !isFollowed });
-  // }
-  // throw json({ message: 'Invalid intent' }, { status: 400 });
   return { ok: true };
 };
 
