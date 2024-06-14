@@ -12,7 +12,7 @@ const Layout = (props: Props) => {
       <TopNav links={topNavLinks} />
       <div
         id='main'
-        className='flex justify-center px-8 py-4 bg-slate-100 h-full'
+        className='flex flex-col items-center px-8 py-4 bg-slate-100'
       >
         {props.children}
       </div>

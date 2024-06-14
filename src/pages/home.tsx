@@ -1,6 +1,7 @@
 import Feed from '@/components/Feed';
 import { useLoaderData } from 'react-router';
 import { Post as PostType } from '@/types/Post';
+import CreatePost from '@/components/CreatePost';
 
 const loader = async () => {
   let accessToken = null;
@@ -31,6 +32,7 @@ const Home = () => {
   const posts = useLoaderData() as PostType[] | null;
   return (
     <>
+      <CreatePost />
       <Feed className='md:max-w-2xl' posts={posts} />
     </>
   );
