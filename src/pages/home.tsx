@@ -23,7 +23,7 @@ const action = async ({ request }: { request: Request }) => {
     return errors;
   }
 
-  const post = await createPost(content);
+  await createPost(content);
   return redirect('/');
 };
 
