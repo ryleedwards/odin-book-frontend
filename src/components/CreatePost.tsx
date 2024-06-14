@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from './ui/card';
 import { Textarea } from './ui/textarea';
-import { Form, useActionData } from 'react-router-dom';
+import { Form, useActionData, useNavigation } from 'react-router-dom';
 
 type CreatePostProps = {
   className?: string;
@@ -16,6 +16,8 @@ type CreatePostProps = {
 
 const CreatePost = ({ className }: CreatePostProps) => {
   const errors = useActionData() as PostFormErrors | null;
+  const navigation = useNavigation();
+  const btnText = navigation.state === 'submitting' ? 'Posting...' : 'Post';
   return (
     <Card className={`${className} w-full`}>
       <CardHeader>
@@ -29,6 +31,7 @@ const CreatePost = ({ className }: CreatePostProps) => {
                 id='content'
                 name='content'
                 placeholder={`What's on your mind?`}
+                disabled={navigation.state === 'submitting'}
               />
             </div>
             {errors?.content && (
@@ -42,7 +45,7 @@ const CreatePost = ({ className }: CreatePostProps) => {
           form='create-post-form'
           className='bg-blue-500 hover:bg-blue-600'
         >
-          Post
+          {btnText}
         </Button>
       </CardFooter>
     </Card>
