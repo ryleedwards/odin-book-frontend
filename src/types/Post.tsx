@@ -7,3 +7,7 @@ export interface Post {
   authorId: string;
   author: User;
 }
+
+export type PostFormErrors = {
+  content?: string;
+};

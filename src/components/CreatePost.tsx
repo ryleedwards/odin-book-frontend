@@ -1,3 +1,4 @@
+import { PostFormErrors } from '@/types/Post';
 import { Button } from './ui/button';
 import {
   Card,
@@ -7,13 +8,14 @@ import {
   CardTitle,
 } from './ui/card';
 import { Textarea } from './ui/textarea';
-import { Form } from 'react-router-dom';
+import { Form, useActionData } from 'react-router-dom';
 
 type CreatePostProps = {
   className?: string;
 };
 
 const CreatePost = ({ className }: CreatePostProps) => {
+  const errors = useActionData() as PostFormErrors | null;
   return (
     <Card className={`${className} w-full`}>
       <CardHeader>
@@ -29,6 +31,9 @@ const CreatePost = ({ className }: CreatePostProps) => {
                 placeholder={`What's on your mind?`}
               />
             </div>
+            {errors?.content && (
+              <p className='text-red-400'>{errors.content}</p>
+            )}
           </div>
         </Form>
       </CardContent>

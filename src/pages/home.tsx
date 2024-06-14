@@ -1,6 +1,6 @@
 import Feed from '@/components/Feed';
-import { useLoaderData } from 'react-router';
-import { Post as PostType } from '@/types/Post';
+import { redirect, useLoaderData } from 'react-router';
+import { PostFormErrors, Post as PostType } from '@/types/Post';
 import CreatePost from '@/components/CreatePost';
 import { getPosts, createPost } from '@/api/post';
 
@@ -10,11 +10,21 @@ const loader = async () => {
 };
 
 const action = async ({ request }: { request: Request }) => {
+  const errors = {} as PostFormErrors;
   const formData = await request.formData();
   const content = formData.get('content') as string;
+
+  // Validate content
+  if (typeof content !== 'string' || content.length === 0) {
+    errors.content = 'Please add text to your post';
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return errors;
+  }
+
   const post = await createPost(content);
-  console.log(post);
-  return { post };
+  return redirect('/');
 };
 
 const Home = () => {
