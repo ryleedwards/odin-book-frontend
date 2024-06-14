@@ -11,10 +11,9 @@ import { Form } from 'react-router-dom';
 
 type CreatePostProps = {
   className?: string;
-  handlePostSubmit: () => void;
 };
 
-const CreatePost = ({ className, handlePostSubmit }: CreatePostProps) => {
+const CreatePost = ({ className }: CreatePostProps) => {
   return (
     <Card className={`${className} w-full`}>
       <CardHeader>
@@ -37,7 +36,6 @@ const CreatePost = ({ className, handlePostSubmit }: CreatePostProps) => {
         <Button
           form='create-post-form'
           className='bg-blue-500 hover:bg-blue-600'
-          onClick={handlePostSubmit}
         >
           Post
         </Button>

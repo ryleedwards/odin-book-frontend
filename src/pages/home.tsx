@@ -19,15 +19,10 @@ const action = async ({ request }: { request: Request }) => {
 
 const Home = () => {
   const posts = useLoaderData() as PostType[] | null;
-  const handlePostSubmit = () => {
-    console.log('Post submitted');
-  };
+
   return (
     <>
-      <CreatePost
-        className='md:max-w-2xl mb-10'
-        handlePostSubmit={handlePostSubmit}
-      />
+      <CreatePost className='md:max-w-2xl mb-10' />
       <Feed className='md:max-w-2xl' posts={posts} />
     </>
   );
