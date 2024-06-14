@@ -32,7 +32,7 @@ const Home = () => {
   const posts = useLoaderData() as PostType[] | null;
   return (
     <>
-      <CreatePost />
+      <CreatePost className='md:max-w-2xl mb-10' />
       <Feed className='md:max-w-2xl' posts={posts} />
     </>
   );
