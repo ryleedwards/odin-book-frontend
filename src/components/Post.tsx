@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Post as PostType } from '@/types/Post';
 import {
   Card,
@@ -18,6 +19,8 @@ import {
 import { Avatar, AvatarImage } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Link } from 'react-router-dom';
+import LikeButton from './LikeButton';
+import { authProvider } from '@/auth/auth';
 
 type PostProps = {
   post: PostType;
@@ -43,6 +46,14 @@ const formatPostDate = (date: Date) => {
 };
 
 const Post = ({ post }: PostProps) => {
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    if (post.likes.some((like) => like.userId === authProvider.user?.id)) {
+      setIsLiked(true);
+    }
+  }, [post]);
+
   return (
     <Card>
       <CardHeader>
@@ -71,7 +82,9 @@ const Post = ({ post }: PostProps) => {
       <CardContent>
         <p>{post.content}</p>
       </CardContent>
-      <CardFooter></CardFooter>
+      <CardFooter>
+        <LikeButton isLiked={isLiked} />
+      </CardFooter>
     </Card>
   );
 };
