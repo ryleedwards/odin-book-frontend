@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaRegHeart, FaHeart } from 'react-icons/fa';
+import { FaRegHeart, FaHeart, FaHeartBroken } from 'react-icons/fa';
 
 type LikeButtonProps = {
   isLiked: boolean;
@@ -22,8 +22,15 @@ const LikeButton = ({ isLiked }: LikeButtonProps) => {
       onMouseLeave={handleMouseLeave}
       className='cursor-pointer'
     >
-      {isLiked ? <FaHeart className='text-red-500' /> : <FaRegHeart />}
-      {isHovered ? <FaHeart className='text-red-500' /> : <FaRegHeart />}
+      {isLiked && isHovered ? (
+        <FaHeartBroken className='text-red-600' />
+      ) : isLiked && !isHovered ? (
+        <FaHeart className='text-red-500' />
+      ) : !isLiked && isHovered ? (
+        <FaHeart className='text-red-500' />
+      ) : !isLiked && !isHovered ? (
+        <FaRegHeart />
+      ) : null}
     </div>
   );
 };
