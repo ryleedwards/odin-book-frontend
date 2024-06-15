@@ -23,7 +23,7 @@ const LikeButton = ({ isLiked }: LikeButtonProps) => {
       className='cursor-pointer'
     >
       {isLiked && isHovered ? (
-        <FaHeartBroken className='text-red-600' />
+        <FaHeartBroken className='text-red-700' />
       ) : isLiked && !isHovered ? (
         <FaHeart className='text-red-500' />
       ) : !isLiked && isHovered ? (
