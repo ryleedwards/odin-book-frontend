@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaRegHeart, FaHeart, FaHeartBroken } from 'react-icons/fa';
 import { Post as PostType } from '../types/Post';
 import { authProvider } from '@/auth/auth';
+import { createLike, deleteLike } from '@/api/post';
 
 type LikeButtonProps = {
   post: PostType;
@@ -23,11 +24,25 @@ const LikeButton = ({ post }: LikeButtonProps) => {
     setIsHovered(false);
   };
 
+  const handleLikeClick = async () => {
+    try {
+      if (isLiked) {
+        await deleteLike(post.id);
+        setIsLiked(false);
+      } else {
+        await createLike(post.id);
+        setIsLiked(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <button
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className='cursor-pointer'
+      onClick={handleLikeClick}
     >
       {isLiked && isHovered ? (
         <FaHeartBroken className='text-red-700' />

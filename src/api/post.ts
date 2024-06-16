@@ -29,3 +29,41 @@ export const createPost = async (content: string) => {
   }
   return response.json();
 };
+
+export const createLike = async (postId: number) => {
+  const headers = getAuthHeaders();
+  headers.append('Content-Type', 'application/json');
+  const request = new Request(
+    `${import.meta.env.VITE_BACKEND_URL}/api/posts/${postId}/likes`,
+    {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ userId: authProvider.user?.id }),
+    }
+  );
+  const response = await fetch(request);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+};
+
+export const deleteLike = async (postId: number) => {
+  const headers = getAuthHeaders();
+  headers.append('Content-Type', 'application/json');
+  const request = new Request(
+    `${import.meta.env.VITE_BACKEND_URL}/api/posts/${postId}/likes`,
+    {
+      method: 'DELETE',
+      headers: headers,
+      body: JSON.stringify({ userId: authProvider.user?.id }),
+    }
+  );
+  const response = await fetch(request);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  if (response.status === 204) {
+    return true;
+  }
+};
