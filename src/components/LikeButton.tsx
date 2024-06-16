@@ -11,13 +11,12 @@ const LikeButton = ({ isLiked }: LikeButtonProps) => {
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
 
   return (
-    <div
+    <button
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className='cursor-pointer'
@@ -31,7 +30,7 @@ const LikeButton = ({ isLiked }: LikeButtonProps) => {
       ) : !isLiked && !isHovered ? (
         <FaRegHeart />
       ) : null}
-    </div>
+    </button>
   );
 };
 
