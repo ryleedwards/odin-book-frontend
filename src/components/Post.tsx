@@ -19,6 +19,7 @@ import { Avatar, AvatarImage } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
+import { LikeCount } from './LikeCount';
 
 type PostProps = {
   post: PostType;
@@ -44,6 +45,7 @@ const formatPostDate = (date: Date) => {
 };
 
 const Post = ({ post }: PostProps) => {
+  console.log(post);
   return (
     <Card>
       <CardHeader>
@@ -73,7 +75,13 @@ const Post = ({ post }: PostProps) => {
         <p>{post.content}</p>
       </CardContent>
       <CardFooter>
-        <LikeButton post={post} />
+        <div className='flex gap-2 items-center'>
+          <LikeButton post={post} />
+          <LikeCount
+            post={post}
+            className='hover:underline cursor-pointer text-gray-500 text-sm'
+          />
+        </div>
       </CardFooter>
     </Card>
   );
