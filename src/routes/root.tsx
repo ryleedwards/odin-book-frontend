@@ -1,5 +1,10 @@
 import type { LoaderFunctionArgs } from 'react-router-dom';
-import { redirect, useLoaderData, Outlet } from 'react-router-dom';
+import {
+  redirect,
+  useLoaderData,
+  Outlet,
+  ScrollRestoration,
+} from 'react-router-dom';
 import Layout from '../components/Layout';
 import { authProvider } from '../auth/auth';
 import { User } from '../auth/auth';
@@ -36,6 +41,7 @@ const Root = () => {
   return (
     <>
       <Layout>
+        <ScrollRestoration />
         <Outlet context={{ user } satisfies ContextType} />
       </Layout>
     </>

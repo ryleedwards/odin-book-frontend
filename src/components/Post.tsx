@@ -18,6 +18,11 @@ import {
 import { Avatar, AvatarImage } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Link } from 'react-router-dom';
+import LikeButton from './LikeButton';
+import { LikeCount } from './LikeCount';
+import { useEffect, useState } from 'react';
+import { authProvider } from '@/auth/auth';
+import { createLike, deleteLike } from '@/api/post';
 
 type PostProps = {
   post: PostType;
@@ -43,6 +48,34 @@ const formatPostDate = (date: Date) => {
 };
 
 const Post = ({ post }: PostProps) => {
+  console.log(post);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.likes.length);
+
+  // determines if post is liked by current user
+  useEffect(() => {
+    if (post.likes.some((like) => like.userId === authProvider.user?.id)) {
+      setIsLiked(true);
+    }
+  }, [post]);
+
+  // determines if post is currently liked, submits opposite to post api
+  const handleLikeClick = async () => {
+    try {
+      if (isLiked) {
+        await deleteLike(post.id);
+        setIsLiked(false);
+        setLikeCount((likeCount) => likeCount - 1);
+      } else {
+        await createLike(post.id);
+        setIsLiked(true);
+        setLikeCount((likeCount) => likeCount + 1);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -71,7 +104,16 @@ const Post = ({ post }: PostProps) => {
       <CardContent>
         <p>{post.content}</p>
       </CardContent>
-      <CardFooter></CardFooter>
+      <CardFooter>
+        <div className='flex gap-2 items-center'>
+          <LikeButton isLiked={isLiked} handleClick={handleLikeClick} />
+          <LikeCount
+            post={post}
+            likeCount={likeCount}
+            className='hover:underline cursor-pointer text-gray-500 text-sm'
+          />
+        </div>
+      </CardFooter>
     </Card>
   );
 };
