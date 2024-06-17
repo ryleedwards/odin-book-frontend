@@ -8,10 +8,11 @@ import {
 
 type LikeCountProps = {
   post: Post;
+  likeCount: number;
   className?: string;
 };
 
-export const LikeCount = ({ post, className }: LikeCountProps) => {
+export const LikeCount = ({ post, className, likeCount }: LikeCountProps) => {
   const likedByList = (
     <ul>
       {post.likes.map((like) => (
@@ -25,7 +26,7 @@ export const LikeCount = ({ post, className }: LikeCountProps) => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <p>{post.likes.length}</p>
+            <p>{likeCount}</p>
           </TooltipTrigger>
           <TooltipContent>{likedByList}</TooltipContent>
         </Tooltip>
