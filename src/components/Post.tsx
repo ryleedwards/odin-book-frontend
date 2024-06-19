@@ -24,6 +24,8 @@ import { useEffect, useState } from 'react';
 import { authProvider } from '@/auth/auth';
 import { createLike, deleteLike } from '@/api/post';
 import { CommentCount } from './CommentCount';
+import { CommentDisplay } from './CommentDisplay';
+import { Separator } from './ui/separator';
 
 type PostProps = {
   post: PostType;
@@ -106,16 +108,25 @@ const Post = ({ post }: PostProps) => {
         <p>{post.content}</p>
       </CardContent>
       <CardFooter>
-        <div className='flex gap-4'>
-          <div className='flex gap-2 items-center'>
-            <LikeButton isLiked={isLiked} handleClick={handleLikeClick} />
-            <LikeCount
-              post={post}
-              likeCount={likeCount}
-              className='hover:underline cursor-pointer text-gray-500 text-sm'
-            />
+        <div className='flex flex-col gap-4 w-full'>
+          <div className='flex gap-4'>
+            <div className='flex gap-2 items-center'>
+              <LikeButton isLiked={isLiked} handleClick={handleLikeClick} />
+              <LikeCount
+                post={post}
+                likeCount={likeCount}
+                className='hover:underline cursor-pointer text-gray-500 text-sm'
+              />
+            </div>
+            <CommentCount count={post.comments.length} />
           </div>
-          <CommentCount count={post.comments.length} />
+          {post.comments.length > 0 && (
+            <>
+              <Separator />
+              <CommentDisplay comment={post.comments[0]} className='pl-4' />
+            </>
+          )}
+          {post.comments.length > 1 && <p>View more comments</p>}
         </div>
       </CardFooter>
     </Card>
