@@ -1,5 +1,6 @@
 import { User } from './User';
 import { Like } from './Like';
+import { Comment } from './Comment';
 
 export interface Post {
   id: number;
@@ -8,6 +9,7 @@ export interface Post {
   authorId: number;
   author: User;
   likes: Like[];
+  comments: Comment[];
 }
 
 export type PostFormErrors = {
