@@ -26,6 +26,7 @@ import { createLike, deleteLike } from '@/api/post';
 import { CommentCount } from './CommentCount';
 import { CommentDisplay } from './CommentDisplay';
 import { Separator } from './ui/separator';
+import { FaExpandAlt } from 'react-icons/fa';
 
 type PostProps = {
   post: PostType;
@@ -82,23 +83,28 @@ const Post = ({ post }: PostProps) => {
     <Card>
       <CardHeader>
         <CardTitle className='text-md'>
-          <div className='flex gap-2 items-center'>
-            <Link to={`/users/${post.authorId}`}>
-              <Avatar className='bg-gray-300 justify-center items-center'>
-                <AvatarImage />
-                <AvatarFallback>{post.author.name[0]}</AvatarFallback>
-              </Avatar>
-            </Link>
-            <div className='ml-2'>
+          <div className='flex justify-between'>
+            <div className='flex gap-2 items-center'>
               <Link to={`/users/${post.authorId}`}>
-                <h4 className='font-bold hover:underline'>
-                  {post.author.name}
-                </h4>
+                <Avatar className='bg-gray-300 justify-center items-center'>
+                  <AvatarImage />
+                  <AvatarFallback>{post.author.name[0]}</AvatarFallback>
+                </Avatar>
               </Link>
-              <p className='text-xs text-muted-foreground'>
-                {formatPostDate(new Date(post.createdAt))}
-              </p>
+              <div className='ml-2'>
+                <Link to={`/users/${post.authorId}`}>
+                  <h4 className='font-bold hover:underline'>
+                    {post.author.name}
+                  </h4>
+                </Link>
+                <p className='text-xs text-muted-foreground'>
+                  {formatPostDate(new Date(post.createdAt))}
+                </p>
+              </div>
             </div>
+            <Link to={`/posts/${post.id}`} preventScrollReset={true}>
+              <FaExpandAlt className='text-xl text-gray-500 hover:text-gray-800' />
+            </Link>
           </div>
         </CardTitle>
         <CardDescription className='text-xs'></CardDescription>
