@@ -17,6 +17,7 @@ async function loader({ params }: LoaderFunctionArgs) {
 
 const Post = () => {
   const post = useLoaderData() as PostType;
+  console.log(post);
   return <PostModal post={post} />;
 };
 
