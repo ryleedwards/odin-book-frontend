@@ -51,7 +51,6 @@ const formatPostDate = (date: Date) => {
 };
 
 const Post = ({ post }: PostProps) => {
-  console.log(post);
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes.length);
 
