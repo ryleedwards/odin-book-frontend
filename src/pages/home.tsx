@@ -1,5 +1,5 @@
 import Feed from '@/components/Feed';
-import { redirect, useLoaderData } from 'react-router';
+import { Outlet, redirect, useLoaderData } from 'react-router';
 import { PostFormErrors, Post as PostType } from '@/types/Post';
 import CreatePost from '@/components/CreatePost';
 import { getPosts, createPost } from '@/api/post';
@@ -34,6 +34,7 @@ const Home = () => {
     <>
       <CreatePost className='md:max-w-2xl mb-10' />
       <Feed className='md:max-w-2xl' posts={posts} />
+      <Outlet />
     </>
   );
 };
