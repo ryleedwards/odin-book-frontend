@@ -102,7 +102,7 @@ const Post = ({ post }: PostProps) => {
                 </p>
               </div>
             </div>
-            <Link to={`/posts/${post.id}`} preventScrollReset={true}>
+            <Link to={`posts/${post.id}`} preventScrollReset={true}>
               <FaExpandAlt className='text-xl text-gray-500 hover:text-gray-800' />
             </Link>
           </div>
