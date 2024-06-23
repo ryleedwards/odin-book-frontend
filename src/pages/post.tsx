@@ -1,8 +1,7 @@
 import { getPost } from '@/api/post';
-import { LoaderFunction, Outlet, Params, useLoaderData } from 'react-router';
+import { LoaderFunction, Params, useLoaderData } from 'react-router';
 import { Post as PostType } from '@/types/Post';
 import PostModal from '@/components/PostModal';
-import { useEffect, useState } from 'react';
 
 type LoaderData = {
   post: PostType;
