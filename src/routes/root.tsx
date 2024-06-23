@@ -24,6 +24,10 @@ async function loader({ request }: LoaderFunctionArgs) {
       );
 
       if (status) {
+        // Adding a redirect to /posts as home page
+        if (location.pathname === '/') {
+          return redirect('/posts');
+        }
         return { user: authProvider.user };
       }
     }
