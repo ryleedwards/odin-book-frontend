@@ -19,7 +19,7 @@ const action = async ({ request }: { request: Request }) => {
     const postId = parseInt(formData.get('postId') as string);
     liked ? await deleteLike(postId) : await createLike(postId);
   }
-  return null;
+  return { ok: true };
 };
 
 const Posts = () => {

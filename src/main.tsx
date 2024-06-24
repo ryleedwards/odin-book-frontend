@@ -7,7 +7,7 @@ import Root from './routes/root';
 import LoginPage from './routes/login';
 import Profile from './routes/profile';
 import Posts from './routes/posts';
-import { Post as PostPage } from './routes/post';
+import Post from './routes/post';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,12 @@ const router = createBrowserRouter([
         loader: Posts.loader,
         action: Posts.action,
         children: [
-          { path: ':postId', element: <PostPage />, loader: PostPage.loader },
+          {
+            path: ':postId',
+            element: <Post />,
+            loader: Post.loader,
+            action: Post.action,
+          },
         ],
       },
       {
@@ -39,8 +44,9 @@ const router = createBrowserRouter([
             children: [
               {
                 path: 'posts/:postId',
-                element: <PostPage />,
-                loader: PostPage.loader,
+                element: <Post />,
+                loader: Post.loader,
+                action: Post.action,
               },
             ],
           },
