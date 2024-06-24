@@ -26,7 +26,7 @@ const LikeButton = ({ post }: LikeButtonProps) => {
 
   const innerText = liked ? (
     isHovered ? (
-      <FaHeartBroken className='text-red-500' />
+      <FaHeartBroken className='text-red-700' />
     ) : (
       <FaHeart className='text-red-500' />
     )
