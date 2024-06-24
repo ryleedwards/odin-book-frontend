@@ -4,10 +4,10 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/error-page';
 import Root from './routes/root';
-import LoginPage from './pages/login';
-import Profile from './pages/profile';
-import Posts from './pages/posts';
-import { Post as PostPage } from './pages/post';
+import LoginPage from './routes/login';
+import Profile from './routes/profile';
+import Posts from './routes/posts';
+import { Post as PostPage } from './routes/post';
 
 const router = createBrowserRouter([
   {
