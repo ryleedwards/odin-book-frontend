@@ -31,7 +31,7 @@ const loader = async () => {
       accessToken
     );
     if (status) {
-      return redirect('/');
+      return redirect('/posts');
     }
   }
   return null;

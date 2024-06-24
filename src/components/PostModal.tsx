@@ -4,12 +4,13 @@ import ModalWrapper from './ModalWrapper';
 
 type PostModalType = {
   post: PostType;
+  isFromProfile: boolean;
 };
 
-const PostModal = ({ post }: PostModalType) => {
+const PostModal = ({ post, isFromProfile }: PostModalType) => {
   return (
     <ModalWrapper>
-      <Post post={post} />
+      <Post post={post} isFromProfile={isFromProfile} />
     </ModalWrapper>
   );
 };

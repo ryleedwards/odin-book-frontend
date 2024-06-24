@@ -30,6 +30,7 @@ import { FaExpandAlt } from 'react-icons/fa';
 
 type PostProps = {
   post: PostType;
+  isFromProfile?: boolean;
 };
 
 const formatPostDate = (date: Date) => {
@@ -51,7 +52,8 @@ const formatPostDate = (date: Date) => {
   }
 };
 
-const Post = ({ post }: PostProps) => {
+const Post = ({ post, isFromProfile }: PostProps) => {
+  const expandURL = isFromProfile ? `posts/${post.id}` : `${post.id}`;
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes.length);
 
@@ -102,7 +104,7 @@ const Post = ({ post }: PostProps) => {
                 </p>
               </div>
             </div>
-            <Link to={`posts/${post.id}`} preventScrollReset={true}>
+            <Link to={expandURL} preventScrollReset={true}>
               <FaExpandAlt className='text-xl text-gray-500 hover:text-gray-800' />
             </Link>
           </div>

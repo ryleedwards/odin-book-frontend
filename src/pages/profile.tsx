@@ -1,5 +1,6 @@
 import {
   LoaderFunction,
+  Outlet,
   Params,
   useLoaderData,
   useOutletContext,
@@ -33,7 +34,7 @@ const loader: LoaderFunction = async ({ params }: { params: Params }) => {
   const { userId } = params;
   try {
     if (!userId) {
-      throw new Response('Bad request', { status: 401 });
+      throw new Response('Bad request', { status: 400 });
     }
     const profile = await fetchProfile(parseInt(userId));
     // get user posts
@@ -43,7 +44,8 @@ const loader: LoaderFunction = async ({ params }: { params: Params }) => {
     }
     return { userId, profile, userPosts } as LoaderData;
   } catch (e) {
-    throw new Response('Profile not found', { status: 404 });
+    console.error(e);
+    throw new Response('Something went wrong', { status: 500 });
   }
 };
 
@@ -79,7 +81,8 @@ const Profile = () => {
         onFollowToggle={handleFollowToggle}
       />
       <h3 className='text-xl font-bold ml-4'>Posts</h3>
-      <Feed posts={userPosts} />
+      <Feed posts={userPosts} isFromProfile={true} />
+      <Outlet />
     </div>
   );
 };

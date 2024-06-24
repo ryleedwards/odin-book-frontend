@@ -5,9 +5,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/error-page';
 import Root from './routes/root';
 import LoginPage from './pages/login';
-import Home from './pages/home';
 import Profile from './pages/profile';
-import Post from './routes/post';
+import Posts from './pages/posts';
+import { Post as PostPage } from './pages/post';
 
 const router = createBrowserRouter([
   {
@@ -18,21 +18,17 @@ const router = createBrowserRouter([
     loader: Root.loader,
     children: [
       {
-        path: '/',
-        element: <Home />,
-        loader: Home.loader,
-        action: Home.action,
+        path: 'posts',
+        element: <Posts />,
         errorElement: <ErrorPage />,
+        loader: Posts.loader,
+        action: Posts.action,
         children: [
-          {
-            path: 'posts/:postId',
-            element: <Post />,
-            loader: Post.loader,
-          },
+          { path: ':postId', element: <PostPage />, loader: PostPage.loader },
         ],
       },
       {
-        path: '/users',
+        path: 'users',
         errorElement: <ErrorPage />,
         children: [
           {
@@ -40,6 +36,13 @@ const router = createBrowserRouter([
             loader: Profile.loader,
             action: Profile.action,
             element: <Profile />,
+            children: [
+              {
+                path: 'posts/:postId',
+                element: <PostPage />,
+                loader: PostPage.loader,
+              },
+            ],
           },
         ],
       },
