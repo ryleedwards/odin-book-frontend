@@ -17,6 +17,7 @@ const Feed = ({ className, posts, isFromProfile }: FeedProps) => {
           post={post}
           isFromProfile={isFromProfile}
           showCommentForm={false}
+          isModal={false}
         />
       ))}
     </div>

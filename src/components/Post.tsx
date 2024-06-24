@@ -17,7 +17,7 @@ import {
 } from 'date-fns';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
-import { Form, Link } from 'react-router-dom';
+import { Form, Link, useNavigate } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { LikeCount } from './LikeCount';
 import { CommentCount } from './CommentCount';
@@ -27,11 +27,13 @@ import { FaExpandAlt } from 'react-icons/fa';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { IoMdSend } from 'react-icons/io';
+import { FaXmark } from 'react-icons/fa6';
 
 type PostProps = {
   post: PostType;
   isFromProfile?: boolean;
   showCommentForm: boolean;
+  isModal?: boolean;
 };
 
 const formatPostDate = (date: Date) => {
@@ -53,8 +55,9 @@ const formatPostDate = (date: Date) => {
   }
 };
 
-const Post = ({ post, isFromProfile, showCommentForm }: PostProps) => {
+const Post = ({ post, isFromProfile, showCommentForm, isModal }: PostProps) => {
   const expandURL = isFromProfile ? `posts/${post.id}` : `${post.id}`;
+  const navigate = useNavigate();
 
   return (
     <Card>
@@ -79,9 +82,18 @@ const Post = ({ post, isFromProfile, showCommentForm }: PostProps) => {
                 </p>
               </div>
             </div>
-            <Link to={expandURL} preventScrollReset={true}>
-              <FaExpandAlt className='text-xl text-gray-500 hover:text-gray-800' />
-            </Link>
+            {isModal ? (
+              <button
+                onClick={() => navigate(-1)}
+                className='absolute right-8 top-8 rounded-full text-gray-500 hover:text-gray-800 p-2'
+              >
+                <FaXmark />
+              </button>
+            ) : (
+              <Link to={expandURL} preventScrollReset={true}>
+                <FaExpandAlt className='text-xl text-gray-500 hover:text-gray-800' />
+              </Link>
+            )}
           </div>
         </CardTitle>
         <CardDescription className='text-xs'></CardDescription>
