@@ -1,5 +1,5 @@
 import Feed from '@/components/Feed';
-import { useLoaderData, Outlet, json, Params } from 'react-router';
+import { useLoaderData, Outlet } from 'react-router';
 import { Post as PostType } from '@/types/Post';
 import { deleteLike, getPosts } from '@/api/post';
 import { createLike } from '@/api/post';

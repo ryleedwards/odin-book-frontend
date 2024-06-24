@@ -1,7 +1,8 @@
 import { authProvider } from '@/auth/auth';
 import { Post } from '@/types/Post';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useFetcher } from 'react-router-dom';
+import { FaHeart, FaHeartBroken, FaRegHeart } from 'react-icons/fa';
 
 type LikeButtonProps = {
   post: Post;
@@ -23,18 +24,30 @@ const LikeButton = ({ post }: LikeButtonProps) => {
     setIsHovered(false);
   };
 
+  const innerText = liked ? (
+    isHovered ? (
+      <FaHeartBroken className='text-red-500' />
+    ) : (
+      <FaHeart className='text-red-500' />
+    )
+  ) : isHovered ? (
+    <FaHeart className='text-red-500' />
+  ) : (
+    <FaRegHeart />
+  );
+
   return (
     <button
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className='cursor-pointer'
+      className={`cursor-pointer`}
       onClick={() =>
         fetcher.submit({ postId: post.id, liked: liked }, { method: 'post' })
       }
       name='liked'
       value={liked ? 'true' : 'false'}
     >
-      Like
+      {innerText}
     </button>
   );
 };
