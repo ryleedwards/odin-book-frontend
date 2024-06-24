@@ -17,17 +17,21 @@ import {
 } from 'date-fns';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
-import { Link } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { LikeCount } from './LikeCount';
 import { CommentCount } from './CommentCount';
 import { CommentDisplay } from './CommentDisplay';
 import { Separator } from './ui/separator';
 import { FaExpandAlt } from 'react-icons/fa';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
+import { IoMdSend } from 'react-icons/io';
 
 type PostProps = {
   post: PostType;
   isFromProfile?: boolean;
+  showCommentForm: boolean;
 };
 
 const formatPostDate = (date: Date) => {
@@ -49,7 +53,7 @@ const formatPostDate = (date: Date) => {
   }
 };
 
-const Post = ({ post, isFromProfile }: PostProps) => {
+const Post = ({ post, isFromProfile, showCommentForm }: PostProps) => {
   const expandURL = isFromProfile ? `posts/${post.id}` : `${post.id}`;
 
   return (
@@ -105,6 +109,14 @@ const Post = ({ post, isFromProfile }: PostProps) => {
             </>
           )}
           {post.comments.length > 1 && <p>View more comments</p>}
+          {showCommentForm && (
+            <Form method='post' className='flex'>
+              <Input placeholder='Add a comment' />
+              <Button className='ml-2 '>
+                <IoMdSend />
+              </Button>
+            </Form>
+          )}
         </div>
       </CardFooter>
     </Card>

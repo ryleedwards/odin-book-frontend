@@ -10,7 +10,7 @@ type PostModalType = {
 const PostModal = ({ post, isFromProfile }: PostModalType) => {
   return (
     <ModalWrapper>
-      <Post post={post} isFromProfile={isFromProfile} />
+      <Post post={post} isFromProfile={isFromProfile} showCommentForm={true} />
     </ModalWrapper>
   );
 };
