@@ -1,4 +1,4 @@
-import { getPost } from '@/api/post';
+import { createLike, deleteLike, getPost } from '@/api/post';
 import { LoaderFunction, Params, useLoaderData } from 'react-router';
 import { Post as PostType } from '@/types/Post';
 import PostModal from '@/components/PostModal';
@@ -28,7 +28,18 @@ const loader: LoaderFunction = async ({ params }: { params: Params }) => {
   }
 };
 
-const action = async () => {};
+const action = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+  for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  if (formData.has('liked') && formData.has('postId')) {
+    const liked = formData.get('liked') === 'true';
+    const postId = parseInt(formData.get('postId') as string);
+    liked ? await deleteLike(postId) : await createLike(postId);
+  }
+  return { ok: true };
+};
 
 const Post = () => {
   const { post, userId } = useLoaderData() as LoaderData;
@@ -42,4 +53,4 @@ const Post = () => {
 Post.loader = loader;
 Post.action = action;
 
-export { Post };
+export default Post;

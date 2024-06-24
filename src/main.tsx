@@ -4,10 +4,10 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/error-page';
 import Root from './routes/root';
-import LoginPage from './pages/login';
-import Profile from './pages/profile';
-import Posts from './pages/posts';
-import { Post as PostPage } from './pages/post';
+import LoginPage from './routes/login';
+import Profile from './routes/profile';
+import Posts from './routes/posts';
+import Post from './routes/post';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,12 @@ const router = createBrowserRouter([
         loader: Posts.loader,
         action: Posts.action,
         children: [
-          { path: ':postId', element: <PostPage />, loader: PostPage.loader },
+          {
+            path: ':postId',
+            element: <Post />,
+            loader: Post.loader,
+            action: Post.action,
+          },
         ],
       },
       {
@@ -39,8 +44,9 @@ const router = createBrowserRouter([
             children: [
               {
                 path: 'posts/:postId',
-                element: <PostPage />,
-                loader: PostPage.loader,
+                element: <Post />,
+                loader: Post.loader,
+                action: Post.action,
               },
             ],
           },
