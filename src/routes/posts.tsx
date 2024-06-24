@@ -1,7 +1,8 @@
 import Feed from '@/components/Feed';
-import { useLoaderData, Outlet } from 'react-router';
+import { useLoaderData, Outlet, json, Params } from 'react-router';
 import { Post as PostType } from '@/types/Post';
-import { getPosts } from '@/api/post';
+import { deleteLike, getPosts } from '@/api/post';
+import { createLike } from '@/api/post';
 
 const loader = async () => {
   const posts = await getPosts();
@@ -9,6 +10,15 @@ const loader = async () => {
 };
 
 const action = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+  for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  if (formData.has('liked') && formData.has('postId')) {
+    const liked = formData.get('liked') === 'true';
+    const postId = parseInt(formData.get('postId') as string);
+    liked ? await deleteLike(postId) : await createLike(postId);
+  }
   return null;
 };
 

@@ -1,12 +1,19 @@
+import { authProvider } from '@/auth/auth';
+import { Post } from '@/types/Post';
 import React, { useState } from 'react';
-import { FaRegHeart, FaHeart, FaHeartBroken } from 'react-icons/fa';
+import { useFetcher } from 'react-router-dom';
 
 type LikeButtonProps = {
-  isLiked: boolean;
-  handleClick: () => void;
+  post: Post;
 };
 
-const LikeButton = ({ isLiked, handleClick }: LikeButtonProps) => {
+const LikeButton = ({ post }: LikeButtonProps) => {
+  const fetcher = useFetcher();
+
+  // if there is 'formData' then it is posting to the action
+  const liked = post.likes.some(
+    (like) => like.userId === authProvider.user?.id
+  );
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -21,17 +28,13 @@ const LikeButton = ({ isLiked, handleClick }: LikeButtonProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className='cursor-pointer'
-      onClick={handleClick}
+      onClick={() =>
+        fetcher.submit({ postId: post.id, liked: liked }, { method: 'post' })
+      }
+      name='liked'
+      value={liked ? 'true' : 'false'}
     >
-      {isLiked && isHovered ? (
-        <FaHeartBroken className='text-red-700' />
-      ) : isLiked && !isHovered ? (
-        <FaHeart className='text-red-500' />
-      ) : !isLiked && isHovered ? (
-        <FaHeart className='text-red-500' />
-      ) : !isLiked && !isHovered ? (
-        <FaRegHeart />
-      ) : null}
+      Like
     </button>
   );
 };

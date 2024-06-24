@@ -17,12 +17,11 @@ import {
 } from 'date-fns';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
-import { Link } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { LikeCount } from './LikeCount';
 import { useEffect, useState } from 'react';
 import { authProvider } from '@/auth/auth';
-import { createLike, deleteLike } from '@/api/post';
 import { CommentCount } from './CommentCount';
 import { CommentDisplay } from './CommentDisplay';
 import { Separator } from './ui/separator';
@@ -55,7 +54,7 @@ const formatPostDate = (date: Date) => {
 const Post = ({ post, isFromProfile }: PostProps) => {
   const expandURL = isFromProfile ? `posts/${post.id}` : `${post.id}`;
   const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likes.length);
+  // const [likeCount, setLikeCount] = useState(post.likes.length);
 
   // determines if post is liked by current user
   useEffect(() => {
@@ -65,6 +64,7 @@ const Post = ({ post, isFromProfile }: PostProps) => {
   }, [post]);
 
   // determines if post is currently liked, submits opposite to post api
+  /* 
   const handleLikeClick = async () => {
     try {
       if (isLiked) {
@@ -80,6 +80,7 @@ const Post = ({ post, isFromProfile }: PostProps) => {
       console.error(error);
     }
   };
+  */
 
   return (
     <Card>
@@ -118,10 +119,10 @@ const Post = ({ post, isFromProfile }: PostProps) => {
         <div className='flex flex-col gap-4 w-full'>
           <div className='flex gap-4'>
             <div className='flex gap-2 items-center'>
-              <LikeButton isLiked={isLiked} handleClick={handleLikeClick} />
+              <LikeButton post={post} />
               <LikeCount
                 post={post}
-                likeCount={likeCount}
+                likeCount={post.likes.length}
                 className='hover:underline cursor-pointer text-gray-500 text-sm'
               />
             </div>
