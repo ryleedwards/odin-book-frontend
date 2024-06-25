@@ -5,8 +5,8 @@ Odin Requirements
 [x] Users can create posts (begin with text only).
 [x] Users can like posts.
 --[ ] Future: Add modal display of who has liked the post.
-[ ] Users can comment on posts.
-[ ] Posts should always display the post content, author, comments, and likes.
+[x] Users can comment on posts.
+[x] Posts should always display the post content, author, comments, and likes.
 [ ] There should be an index page for posts, which shows all the recent posts from the current user and users they are following.
 [ ] Users can create a profile with a profile picture. Depending on how you handle authentication, for example via passport-github2, you may be able to use their account’s existing profile picture. If this isn’t the case you can use Gravatar to generate them.
 [ ] A user’s profile page should contain their profile information, profile photo, and posts.
