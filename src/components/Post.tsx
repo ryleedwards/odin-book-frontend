@@ -28,6 +28,7 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { IoMdSend } from 'react-icons/io';
 import { FaXmark } from 'react-icons/fa6';
+import CommentScrollArea from './CommentScrollArea';
 
 type PostProps = {
   post: PostType;
@@ -114,13 +115,18 @@ const Post = ({ post, isFromProfile, showCommentForm, isModal }: PostProps) => {
             </div>
             <CommentCount count={post.comments.length} />
           </div>
-          {post.comments.length > 0 && (
-            <>
-              <Separator />
-              <CommentDisplay comment={post.comments[0]} className='pl-4' />
-            </>
-          )}
-          {post.comments.length > 1 && <p>View more comments</p>}
+          <Separator />
+          {isModal
+            ? post.comments.length > 0 && (
+                <CommentScrollArea comments={post.comments} className='h-72' />
+              )
+            : // Show comments preview -- i.e. only the first comment
+              post.comments.length > 0 && (
+                <div>
+                  <CommentDisplay comment={post.comments[0]} className='pl-4' />
+                  {post.comments.length > 1 && <p>View more comments</p>}
+                </div>
+              )}
           {showCommentForm && (
             <Form method='post' className='flex'>
               <Input placeholder='Add a comment' name='content' />
