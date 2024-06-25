@@ -2,7 +2,7 @@ Odin Requirements
 [x] Users must sign in to see anything except the sign-in page.
 [x] Users should be able to sign in using your chosen authentication method.
 [x] Users can send follow requests to other users.
-[x] Users can create posts (begin with text only).
+[ ] Users can create posts (begin with text only).
 [x] Users can like posts.
 --[ ] Future: Add modal display of who has liked the post.
 [x] Users can comment on posts.

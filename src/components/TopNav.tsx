@@ -17,7 +17,8 @@ import { User } from '@/auth/auth';
 
 type Link = {
   to: string;
-  displayName: string;
+  inactiveElement: JSX.Element;
+  activeElement: JSX.Element;
 };
 
 type TopNavProps = {
@@ -25,10 +26,6 @@ type TopNavProps = {
 };
 
 const TopNav = ({ links }: TopNavProps) => {
-  const navLinkStyle = 'text-lg font-bold';
-  const isPendingnavLinkStyle = 'text-lg';
-  const activeNavLinkStyle = 'text-lg font-bold underline ';
-
   const { user } = useRouteLoaderData('root') as { user: User | null };
 
   const signOutClickHandler = () => {
@@ -40,7 +37,7 @@ const TopNav = ({ links }: TopNavProps) => {
     <div id='top-nav' className=''>
       <nav className='flex p-2  justify-between items-center'>
         <div className='flex gap-4 items-center'>
-          <Link to={'/'}>
+          <Link to={'/posts'}>
             <OdinBookLogo className='w-12 h-12' />
           </Link>
 
@@ -48,26 +45,18 @@ const TopNav = ({ links }: TopNavProps) => {
             <FaSearch className='text-sm'></FaSearch>
           </Button>
         </div>
-        <ul>
-          <li>
-            {links.map((link, i) => {
-              return (
-                <NavLink
-                  key={i}
-                  to={link.to}
-                  className={({ isActive, isPending }) =>
-                    isActive
-                      ? activeNavLinkStyle
-                      : isPending
-                      ? isPendingnavLinkStyle
-                      : navLinkStyle
+        <ul className='flex gap-4 items-center'>
+          {links.map((link, i) => {
+            return (
+              <li>
+                <NavLink key={i} to={link.to}>
+                  {({ isActive }) =>
+                    isActive ? link.activeElement : link.inactiveElement
                   }
-                >
-                  {link.displayName}
                 </NavLink>
-              );
-            })}
-          </li>
+              </li>
+            );
+          })}
         </ul>
         <div className='flex gap-4 items-center '>
           <Button className='bg-slate-200 hover:bg-slate-300 rounded-full h-10 w-10 flex justify-center items-center'>

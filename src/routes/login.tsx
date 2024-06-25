@@ -66,7 +66,7 @@ const action = async ({ request }: { request: Request }) => {
     errors.auth = 'Invalid email or password';
     return errors;
   } else {
-    return redirect('/');
+    return redirect('/posts');
   }
 };
 
