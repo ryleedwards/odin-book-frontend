@@ -10,17 +10,11 @@ type CommentScrollAreaProps = {
 const CommentScrollArea = ({ comments, className }: CommentScrollAreaProps) => {
   return (
     <ScrollArea id='comment-scroll-area' className={`${className}`}>
-      <div>
-        {comments.map((comment) => {
-          return (
-            <CommentDisplay
-              key={comment.id}
-              comment={comment}
-              className='my-2'
-            />
-          );
-        })}
-      </div>
+      {comments.map((comment) => {
+        return (
+          <CommentDisplay key={comment.id} comment={comment} className='my-2' />
+        );
+      })}
     </ScrollArea>
   );
 };
