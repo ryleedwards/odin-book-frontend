@@ -123,8 +123,8 @@ const Post = ({ post, isFromProfile, showCommentForm, isModal }: PostProps) => {
           {post.comments.length > 1 && <p>View more comments</p>}
           {showCommentForm && (
             <Form method='post' className='flex'>
-              <Input placeholder='Add a comment' />
-              <Button className='ml-2 '>
+              <Input placeholder='Add a comment' name='content' />
+              <Button className='ml-2' type='submit' name='create-comment'>
                 <IoMdSend />
               </Button>
             </Form>

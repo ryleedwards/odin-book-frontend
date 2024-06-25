@@ -70,9 +70,28 @@ export const deleteLike = async (postId: number) => {
 
 export const getPost = async (postId: number) => {
   const headers = getAuthHeaders();
+
   const request = new Request(
     `${import.meta.env.VITE_BACKEND_URL}/api/posts/${postId}`,
     { headers: headers }
+  );
+  const response = await fetch(request);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+};
+
+export const createComment = async (postId: number, content: string) => {
+  const headers = getAuthHeaders();
+  headers.append('Content-Type', 'application/json');
+  const request = new Request(
+    `${import.meta.env.VITE_BACKEND_URL}/api/posts/${postId}/comments`,
+    {
+      headers: headers,
+      method: 'POST',
+      body: JSON.stringify({ content, authorId: authProvider.user?.id }),
+    }
   );
   const response = await fetch(request);
   if (!response.ok) {

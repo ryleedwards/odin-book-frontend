@@ -1,4 +1,4 @@
-import { createLike, deleteLike, getPost } from '@/api/post';
+import { createComment, createLike, deleteLike, getPost } from '@/api/post';
 import { LoaderFunction, Params, useLoaderData } from 'react-router';
 import { Post as PostType } from '@/types/Post';
 import PostModal from '@/components/PostModal';
@@ -28,7 +28,13 @@ const loader: LoaderFunction = async ({ params }: { params: Params }) => {
   }
 };
 
-const action = async ({ request }: { request: Request }) => {
+const action = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const formData = await request.formData();
   for (const [key, value] of formData.entries()) {
     console.log(`${key}: ${value}`);
@@ -37,6 +43,13 @@ const action = async ({ request }: { request: Request }) => {
     const liked = formData.get('liked') === 'true';
     const postId = parseInt(formData.get('postId') as string);
     liked ? await deleteLike(postId) : await createLike(postId);
+  }
+
+  if (formData.has('create-comment') && formData.has('content')) {
+    const content = formData.get('content') as string;
+    const postId = parseInt(params.postId as string);
+    console.log(`Creating comment... content: ${content} || postId: ${postId}`);
+    await createComment(postId, content);
   }
   return { ok: true };
 };
