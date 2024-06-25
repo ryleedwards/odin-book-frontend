@@ -115,16 +115,36 @@ const Post = ({ post, isFromProfile, showCommentForm, isModal }: PostProps) => {
             </div>
             <CommentCount count={post.comments.length} />
           </div>
-          <Separator />
           {isModal
             ? post.comments.length > 0 && (
-                <CommentScrollArea comments={post.comments} className='h-72' />
+                <>
+                  <Separator className='' />
+                  <CommentScrollArea
+                    comments={post.comments}
+                    className='h-72'
+                  />
+                </>
               )
             : // Show comments preview -- i.e. only the first comment
               post.comments.length > 0 && (
-                <div>
-                  <CommentDisplay comment={post.comments[0]} className='pl-4' />
-                  {post.comments.length > 1 && <p>View more comments</p>}
+                <div className='flex flex-col gap-4'>
+                  <>
+                    <Separator />
+                    <CommentDisplay
+                      comment={post.comments[0]}
+                      className='pl-4'
+                    />
+
+                    {post.comments.length > 1 && (
+                      <Link
+                        to={expandURL}
+                        preventScrollReset={true}
+                        className='text-sm hover:underline cursor-pointer'
+                      >
+                        View more comments
+                      </Link>
+                    )}
+                  </>
                 </div>
               )}
           {showCommentForm && (
