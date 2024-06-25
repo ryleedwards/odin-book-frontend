@@ -12,7 +12,13 @@ const Feed = ({ className, posts, isFromProfile }: FeedProps) => {
   return (
     <div id='feed' className={`${className} w-full flex flex-col gap-2`}>
       {posts?.map((post) => (
-        <Post key={post.id} post={post} isFromProfile={isFromProfile} />
+        <Post
+          key={post.id}
+          post={post}
+          isFromProfile={isFromProfile}
+          showCommentForm={false}
+          isModal={false}
+        />
       ))}
     </div>
   );

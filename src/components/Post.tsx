@@ -17,17 +17,24 @@ import {
 } from 'date-fns';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
-import { Link } from 'react-router-dom';
+import { Form, Link, useNavigate } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { LikeCount } from './LikeCount';
 import { CommentCount } from './CommentCount';
 import { CommentDisplay } from './CommentDisplay';
 import { Separator } from './ui/separator';
 import { FaExpandAlt } from 'react-icons/fa';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
+import { IoMdSend } from 'react-icons/io';
+import { FaXmark } from 'react-icons/fa6';
+import CommentScrollArea from './CommentScrollArea';
 
 type PostProps = {
   post: PostType;
   isFromProfile?: boolean;
+  showCommentForm: boolean;
+  isModal?: boolean;
 };
 
 const formatPostDate = (date: Date) => {
@@ -49,8 +56,9 @@ const formatPostDate = (date: Date) => {
   }
 };
 
-const Post = ({ post, isFromProfile }: PostProps) => {
+const Post = ({ post, isFromProfile, showCommentForm, isModal }: PostProps) => {
   const expandURL = isFromProfile ? `posts/${post.id}` : `${post.id}`;
+  const navigate = useNavigate();
 
   return (
     <Card>
@@ -75,9 +83,18 @@ const Post = ({ post, isFromProfile }: PostProps) => {
                 </p>
               </div>
             </div>
-            <Link to={expandURL} preventScrollReset={true}>
-              <FaExpandAlt className='text-xl text-gray-500 hover:text-gray-800' />
-            </Link>
+            {isModal ? (
+              <button
+                onClick={() => navigate(-1)}
+                className='absolute right-8 top-8 rounded-full text-gray-500 hover:text-gray-800 p-2'
+              >
+                <FaXmark />
+              </button>
+            ) : (
+              <Link to={expandURL} preventScrollReset={true}>
+                <FaExpandAlt className='text-xl text-gray-500 hover:text-gray-800' />
+              </Link>
+            )}
           </div>
         </CardTitle>
         <CardDescription className='text-xs'></CardDescription>
@@ -98,13 +115,46 @@ const Post = ({ post, isFromProfile }: PostProps) => {
             </div>
             <CommentCount count={post.comments.length} />
           </div>
-          {post.comments.length > 0 && (
-            <>
-              <Separator />
-              <CommentDisplay comment={post.comments[0]} className='pl-4' />
-            </>
+          {isModal
+            ? post.comments.length > 0 && (
+                <>
+                  <Separator className='' />
+                  <CommentScrollArea
+                    comments={post.comments}
+                    className='h-72'
+                  />
+                </>
+              )
+            : // Show comments preview -- i.e. only the first comment
+              post.comments.length > 0 && (
+                <div className='flex flex-col gap-4'>
+                  <>
+                    <Separator />
+                    <CommentDisplay
+                      comment={post.comments[0]}
+                      className='pl-4'
+                    />
+
+                    {post.comments.length > 1 && (
+                      <Link
+                        to={expandURL}
+                        preventScrollReset={true}
+                        className='text-sm hover:underline cursor-pointer'
+                      >
+                        View more comments
+                      </Link>
+                    )}
+                  </>
+                </div>
+              )}
+          {showCommentForm && (
+            <Form method='post' className='flex'>
+              <Input placeholder='Add a comment' name='content' />
+              <Button className='ml-2' type='submit' name='create-comment'>
+                <IoMdSend />
+              </Button>
+            </Form>
           )}
-          {post.comments.length > 1 && <p>View more comments</p>}
         </div>
       </CardFooter>
     </Card>
