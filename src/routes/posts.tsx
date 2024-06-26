@@ -5,8 +5,10 @@ import { deleteLike, getPosts } from '@/api/post';
 import { createLike } from '@/api/post';
 import { NavLink } from 'react-router-dom';
 
-const loader = async () => {
-  const posts = await getPosts();
+const loader = async ({ request }: { request: Request }) => {
+  const url = new URL(request.url);
+  const view = url.searchParams.get('view');
+  const posts = await getPosts(view);
   return posts;
 };
 
