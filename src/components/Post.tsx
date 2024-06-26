@@ -17,7 +17,7 @@ import {
 } from 'date-fns';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
-import { Form, Link, useNavigate } from 'react-router-dom';
+import { Form, Link, useNavigate, useSearchParams } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { LikeCount } from './LikeCount';
 import { CommentCount } from './CommentCount';
@@ -57,7 +57,12 @@ const formatPostDate = (date: Date) => {
 };
 
 const Post = ({ post, isFromProfile, showCommentForm, isModal }: PostProps) => {
-  const expandURL = isFromProfile ? `posts/${post.id}` : `${post.id}`;
+  // Gather searchParams to pass into expandURL to preserve page state in modal view
+  const [searchParams, setSearchParams] = useSearchParams();
+  // expandURL used to preserve page state in modal view
+  const expandURL = isFromProfile
+    ? `posts/${post.id}?${searchParams.toString()}`
+    : `${post.id}?${searchParams.toString()}`;
   const navigate = useNavigate();
 
   return (
