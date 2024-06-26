@@ -31,13 +31,13 @@ const Posts = () => {
 
   return (
     <>
-      <div className='  md:max-w-2xl flex mb-2 rounded-md text-xl justify-center w-full shadow-sm'>
+      <div className='  md:max-w-2xl flex mb-2 rounded-md text-lg justify-center w-full shadow-sm'>
         <NavLink
           to={'/posts?view=following'}
           className={({ isActive }) =>
             isActive && view === 'following'
-              ? `${feedSelectorStyle} bg-blue-700 text-white rounded-l-md`
-              : `${feedSelectorStyle} rounded-l-md`
+              ? `${feedSelectorStyle} bg-blue-700 text-white rounded-l-md font-bold`
+              : `${feedSelectorStyle} rounded-l-md bg-slate-300 hover:bg-slate-400 font-semibold`
           }
         >
           Following
@@ -46,8 +46,8 @@ const Posts = () => {
           to={'/posts?view=all'}
           className={({ isActive }) =>
             isActive && view === 'all'
-              ? `${feedSelectorStyle} bg-blue-700 text-white rounded-r-md`
-              : `${feedSelectorStyle} rounded-r-md`
+              ? `${feedSelectorStyle} bg-blue-700 text-white rounded-r-md font-bold`
+              : `${feedSelectorStyle} rounded-r-md bg-slate-300 hover:bg-slate-400 font-semibold`
           }
         >
           All
