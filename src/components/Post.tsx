@@ -58,6 +58,7 @@ const formatPostDate = (date: Date) => {
 
 const Post = ({ post, isFromProfile, showCommentForm, isModal }: PostProps) => {
   // Gather searchParams to pass into expandURL to preserve page state in modal view
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   // expandURL used to preserve page state in modal view
   const expandURL = isFromProfile
