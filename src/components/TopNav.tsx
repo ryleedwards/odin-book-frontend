@@ -48,8 +48,8 @@ const TopNav = ({ links }: TopNavProps) => {
         <ul className='flex gap-4 items-center'>
           {links.map((link, i) => {
             return (
-              <li>
-                <NavLink key={i} to={link.to}>
+              <li key={i}>
+                <NavLink to={link.to}>
                   {({ isActive }) =>
                     isActive ? link.activeElement : link.inactiveElement
                   }
