@@ -45,9 +45,9 @@ const Posts = () => {
           Following
         </NavLink>
         <NavLink
-          to={'/posts?view=all'}
+          to={'/posts'}
           className={({ isActive }) =>
-            isActive && view === 'all'
+            isActive && view === null
               ? `${feedSelectorStyle} bg-blue-700 text-white rounded-r-md font-bold`
               : `${feedSelectorStyle} rounded-r-md bg-slate-300 hover:bg-slate-400 font-semibold`
           }
