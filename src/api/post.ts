@@ -1,9 +1,9 @@
 import { getAuthHeaders, authProvider } from '@/auth/auth';
 
-export const getPosts = async () => {
+export const getPosts = async (view?: string | null) => {
   const headers = getAuthHeaders();
   const getPostsRequest = new Request(
-    `${import.meta.env.VITE_BACKEND_URL}/api/posts`,
+    `${import.meta.env.VITE_BACKEND_URL}/api/posts?view=${view}`,
     { headers: headers }
   );
 
