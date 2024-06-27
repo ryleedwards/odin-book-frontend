@@ -10,8 +10,17 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
+import { User as UserType } from '@/types/User';
+import { useState } from 'react';
 
-const EditProfileForm = () => {
+type EditProfileFormProps = {
+  user: UserType;
+};
+
+const EditProfileForm = ({ user }: EditProfileFormProps) => {
+  const [name, setName] = useState(user.name);
+  const [about, setAbout] = useState(user.profile.about);
+
   const navigate = useNavigate();
   return (
     <Card>
@@ -22,13 +31,20 @@ const EditProfileForm = () => {
         <Form>
           <div className='flex flex-col space-y-1.5'>
             <Label htmlFor='name'>Name</Label>
-            <Input id='name' placeholder='Your name' />
+            <Input
+              id='name'
+              placeholder='Your name'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div className='flex flex-col space-y-1.5 pt-4'>
             <Label htmlFor='about'>About</Label>
             <Textarea
               id='about'
               placeholder='Tell us a little about yourself'
+              value={user.profile.about}
+              onChange={(e) => setAbout(e.target.value)}
             />
           </div>
           <div className='flex flex-col space-y-1.5 pt-4'>
