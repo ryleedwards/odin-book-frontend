@@ -9,6 +9,7 @@ import Profile from './routes/profile';
 import Posts from './routes/posts';
 import Post from './routes/post';
 import EditProfileForm from './components/EditProfileForm';
+import EditProfile from './routes/editProfile';
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,9 @@ const router = createBrowserRouter([
               },
               {
                 path: 'edit',
-                element: <EditProfileForm />,
+                element: <EditProfile />,
+                action: EditProfile.action,
+                loader: EditProfile.loader,
               },
             ],
           },
