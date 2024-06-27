@@ -10,6 +10,7 @@ type ProfileDetailProps = {
   children?: React.ReactNode;
   isFollowed: boolean;
   onFollowToggle: () => void;
+  isSelf: boolean;
 };
 
 export const ProfileDetail = ({

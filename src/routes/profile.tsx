@@ -19,11 +19,13 @@ import { Post } from '@/types/Post';
 import { ActionFunction } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { User } from '@/types/User';
+import { authProvider } from '@/auth/auth';
 
 type LoaderData = {
   userId: string;
   profile: ProfileType;
   userPosts: Post[];
+  isSelf: boolean;
 };
 
 const action: ActionFunction = async () => {
@@ -42,7 +44,8 @@ const loader: LoaderFunction = async ({ params }: { params: Params }) => {
     if (!profile || !userPosts) {
       throw new Response('Profile not found', { status: 404 });
     }
-    return { userId, profile, userPosts } as LoaderData;
+    const isSelf = profile.user.id === authProvider.user?.id;
+    return { userId, profile, userPosts, isSelf } as LoaderData;
   } catch (e) {
     console.error(e);
     throw new Response('Something went wrong', { status: 500 });
@@ -50,7 +53,7 @@ const loader: LoaderFunction = async ({ params }: { params: Params }) => {
 };
 
 const Profile = () => {
-  const { userId, profile, userPosts } = useLoaderData() as LoaderData;
+  const { userId, profile, userPosts, isSelf } = useLoaderData() as LoaderData;
   const { user } = useOutletContext() as { user: User | null };
   const [isFollowed, setIsFollowed] = useState(false);
 
@@ -79,6 +82,7 @@ const Profile = () => {
         className='md:max-w-2xl'
         isFollowed={isFollowed}
         onFollowToggle={handleFollowToggle}
+        isSelf={isSelf}
       />
       <h3 className='text-xl font-bold ml-4'>Posts</h3>
       <Feed posts={userPosts} isFromProfile={true} />
