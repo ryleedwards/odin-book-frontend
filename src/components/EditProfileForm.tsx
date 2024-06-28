@@ -18,8 +18,8 @@ type EditProfileFormProps = {
 };
 
 const EditProfileForm = ({ user }: EditProfileFormProps) => {
-  const [name, setName] = useState(user.name);
-  const [about, setAbout] = useState(user.profile.about);
+  const [name, setName] = useState(user.name || '');
+  const [about, setAbout] = useState(user.profile.about || '');
 
   const navigate = useNavigate();
   return (
@@ -43,7 +43,7 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             <Textarea
               id='about'
               placeholder='Tell us a little about yourself'
-              value={user.profile.about}
+              value={about}
               onChange={(e) => setAbout(e.target.value)}
             />
           </div>
