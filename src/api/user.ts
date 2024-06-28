@@ -15,3 +15,27 @@ export const fetchUser = async (userId: number) => {
   }
   return response.json();
 };
+
+export const updateUser = async (userId: number, formData: FormData) => {
+  const headers = getAuthHeaders();
+  headers.append('Content-Type', 'application/json');
+  const parsedFormData = Object.fromEntries(formData);
+  const profileData = {
+    profile: parsedFormData,
+  };
+  const reqToBackend = new Request(
+    `${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`,
+    {
+      method: 'PATCH',
+      headers: headers,
+      body: JSON.stringify(profileData),
+    }
+  );
+
+  const response = await fetch(reqToBackend);
+  console.log(response);
+  if (response.status !== 204) {
+    throw new Error(response.statusText);
+  }
+  return true;
+};

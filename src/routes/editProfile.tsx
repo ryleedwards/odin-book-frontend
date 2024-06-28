@@ -1,7 +1,7 @@
-import { fetchUser } from '@/api/user';
+import { fetchUser, updateUser } from '@/api/user';
 import EditProfileForm from '@/components/EditProfileForm';
 import ModalWrapper from '@/components/ModalWrapper';
-import { LoaderFunction, Params, useLoaderData } from 'react-router';
+import { LoaderFunction, Params, redirect, useLoaderData } from 'react-router';
 import { User } from '@/types/User';
 
 const loader: LoaderFunction = async ({
@@ -21,13 +21,29 @@ const loader: LoaderFunction = async ({
   return user;
 };
 
-const action = () => {
-  return null;
+const action = async ({
+  params,
+  request,
+}: {
+  params: Params;
+  request: Request;
+}) => {
+  const userId = parseInt(params.userId as string);
+  if (!userId) {
+    throw new Response('Bad request', { status: 400 });
+  }
+  const formData = await request.formData();
+  const success = await updateUser(userId, formData);
+
+  if (!success) {
+    return { ok: false };
+  } else {
+    return redirect(`/users/${userId}`);
+  }
 };
 
 const EditProfile = () => {
   const user = useLoaderData() as User;
-  console.log(user);
   return (
     <ModalWrapper>
       <EditProfileForm user={user} />

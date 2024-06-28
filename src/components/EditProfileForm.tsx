@@ -18,7 +18,6 @@ type EditProfileFormProps = {
 };
 
 const EditProfileForm = ({ user }: EditProfileFormProps) => {
-  const [name, setName] = useState(user.name || '');
   const [about, setAbout] = useState(user.profile.about || '');
 
   const navigate = useNavigate();
@@ -28,20 +27,12 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
         <CardTitle>Edit Profile</CardTitle>
       </CardHeader>
       <CardContent>
-        <Form>
-          <div className='flex flex-col space-y-1.5'>
-            <Label htmlFor='name'>Name</Label>
-            <Input
-              id='name'
-              placeholder='Your name'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
+        <Form id='edit-profile' method='patch'>
           <div className='flex flex-col space-y-1.5 pt-4'>
             <Label htmlFor='about'>About</Label>
             <Textarea
               id='about'
+              name='about'
               placeholder='Tell us a little about yourself'
               value={about}
               onChange={(e) => setAbout(e.target.value)}
@@ -57,7 +48,9 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
         <Button variant='outline' onClick={() => navigate(-1)}>
           Cancel
         </Button>
-        <Button type='submit'>Save</Button>
+        <Button type='submit' form='edit-profile'>
+          Save
+        </Button>
       </CardFooter>
     </Card>
   );
