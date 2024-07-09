@@ -1,5 +1,5 @@
 import { Comment } from '@/types/Comment';
-import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
+import { Avatar, AvatarFallback } from './ui/avatar';
 import { Link } from 'react-router-dom';
 import CldImage from './CldImage';
 
