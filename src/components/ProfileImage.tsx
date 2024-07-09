@@ -2,15 +2,19 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import { Avatar, AvatarFallback } from './ui/avatar';
+import { FaRegUser } from 'react-icons/fa';
 
 const ProfileImage = ({ imageId }: { imageId: string }) => {
   if (!imageId) {
     return (
       <Avatar className='rounded-full h-48 w-48'>
-        <AvatarFallback className='bg-slate-300' />
+        <AvatarFallback className='bg-slate-300'>
+          <FaRegUser className='w-24 h-24' />
+        </AvatarFallback>
       </Avatar>
     );
   }
+
   const cld = new Cloudinary({
     cloud: {
       cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,

@@ -15,7 +15,7 @@ import {
   isToday,
   isYesterday,
 } from 'date-fns';
-import { Avatar, AvatarImage } from './ui/avatar';
+import { Avatar } from './ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Form, Link, useNavigate, useSearchParams } from 'react-router-dom';
 import LikeButton from './LikeButton';
@@ -29,6 +29,7 @@ import { Button } from './ui/button';
 import { IoMdSend } from 'react-icons/io';
 import { FaXmark } from 'react-icons/fa6';
 import CommentScrollArea from './CommentScrollArea';
+import CldImage from './CldImage';
 
 type PostProps = {
   post: PostType;
@@ -74,8 +75,13 @@ const Post = ({ post, isFromProfile, showCommentForm, isModal }: PostProps) => {
             <div className='flex gap-2 items-center'>
               <Link to={`/users/${post.authorId}`}>
                 <Avatar className='bg-gray-300 justify-center items-center'>
-                  <AvatarImage />
-                  <AvatarFallback>{post.author.name[0]}</AvatarFallback>
+                  {post.author.profile.image ? (
+                    <CldImage publicId={post.author.profile.image} />
+                  ) : (
+                    <AvatarFallback className='font-semibold bg-slate-300'>
+                      {post.author.name[0]}
+                    </AvatarFallback>
+                  )}
                 </Avatar>
               </Link>
               <div className='ml-2'>
