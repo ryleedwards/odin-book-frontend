@@ -32,7 +32,7 @@ export const ProfileDetail = ({
       id='profile-detail'
       className={`${className} w-full flex flex-col items-center bg-white p-4 rounded-lg gap-4`}
     >
-      {profile && <>{<ProfileImage url={profile.image} />}</>}
+      {profile && <>{<ProfileImage imageId={profile.image} />}</>}
       {profile && (
         <>{<p className='text-2xl font-bold'>{profile.user.name}</p>}</>
       )}

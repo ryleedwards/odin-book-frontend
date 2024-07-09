@@ -1,15 +1,28 @@
-const ProfileImage = ({ url }: { url: string }) => {
+import { Cloudinary } from '@cloudinary/url-gen';
+import { AdvancedImage } from '@cloudinary/react';
+import { fill } from '@cloudinary/url-gen/actions/resize';
+import { Avatar, AvatarFallback } from './ui/avatar';
+
+const ProfileImage = ({ imageId }: { imageId: string }) => {
+  if (!imageId) {
+    return (
+      <Avatar className='rounded-full h-48 w-48'>
+        <AvatarFallback className='bg-slate-300' />
+      </Avatar>
+    );
+  }
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+    },
+  });
+
+  const img = cld.image(imageId);
+  img.resize(fill().width(250).height(250));
+
   return (
     <div className='rounded-full h-48 w-48'>
-      <img
-        src={
-          url
-            ? url
-            : 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg'
-        }
-        alt='profile-image'
-        className='rounded-full h-full w-full object-cover'
-      />
+      <AdvancedImage cldImg={img} className='rounded-full' />
     </div>
   );
 };
