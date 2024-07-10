@@ -33,7 +33,6 @@ export const updateUser = async (userId: number, formData: FormData) => {
   );
 
   const response = await fetch(reqToBackend);
-  console.log(response);
   if (response.status !== 204) {
     throw new Error(response.statusText);
   }
