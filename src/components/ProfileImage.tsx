@@ -4,13 +4,30 @@ import { fill } from '@cloudinary/url-gen/actions/resize';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { FaRegUser } from 'react-icons/fa';
 
-const ProfileImage = ({ imageId }: { imageId: string }) => {
+const ProfileImage = ({
+  imageId,
+  className,
+  children,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  imageId: string;
+  className?: string;
+  children?: React.ReactNode | React.ReactNode[];
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}) => {
   if (!imageId) {
     return (
-      <Avatar className='rounded-full h-48 w-48'>
+      <Avatar
+        className={`rounded-full h-48 w-48 ${className}`}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <AvatarFallback className='bg-slate-300'>
           <FaRegUser className='w-24 h-24' />
         </AvatarFallback>
+        {children}
       </Avatar>
     );
   }
@@ -25,7 +42,11 @@ const ProfileImage = ({ imageId }: { imageId: string }) => {
   img.resize(fill().width(250).height(250));
 
   return (
-    <div className='rounded-full h-48 w-48'>
+    <div
+      className='rounded-full h-48 w-48'
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <AdvancedImage cldImg={img} className='rounded-full' />
     </div>
   );

@@ -3,6 +3,7 @@ import ProfileImage from './ProfileImage';
 import Button from '@/components/Button';
 import { useEffect, useState } from 'react';
 import { Form, Link } from 'react-router-dom';
+import { FaEdit } from 'react-icons/fa';
 
 type ProfileDetailProps = {
   profile: Profile | null;
@@ -20,6 +21,7 @@ export const ProfileDetail = ({
   onFollowToggle,
   isSelf,
 }: ProfileDetailProps) => {
+  const [isPictureHovered, setIsPictureHovered] = useState(false);
   const [btnText, setBtnText] = useState('');
   // set initial button text based on isFollowed prop
   //     ( when this was determined in initial useState call, would experience bug
@@ -32,7 +34,32 @@ export const ProfileDetail = ({
       id='profile-detail'
       className={`${className} w-full flex flex-col items-center bg-white p-4 rounded-lg gap-4`}
     >
-      {profile && <>{<ProfileImage imageId={profile.image} />}</>}
+      {profile && (
+        <>
+          {
+            <ProfileImage
+              imageId={profile.image}
+              className='flex justify-end items-end'
+              onMouseEnter={() => {
+                setIsPictureHovered(true);
+                console.log('hovered');
+              }}
+              onMouseLeave={() => {
+                setIsPictureHovered(false);
+                console.log('unhovered');
+              }}
+            >
+              {isSelf && isPictureHovered && (
+                <Link to={'upload-profile-picture'} className='fixed'>
+                  <Button className=' rounded-full bg-blue-600 text-white mb-4 h-10 w-10 flex justify-center items-center'>
+                    <FaEdit className='' />
+                  </Button>
+                </Link>
+              )}
+            </ProfileImage>
+          }
+        </>
+      )}
       {profile && (
         <>{<p className='text-2xl font-bold'>{profile.user.name}</p>}</>
       )}
