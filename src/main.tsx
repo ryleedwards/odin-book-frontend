@@ -9,6 +9,7 @@ import Profile from './routes/profile';
 import Posts from './routes/posts';
 import Post from './routes/post';
 import EditProfile from './routes/editProfile';
+import UploadProfilePicture from './routes/uploadProfilePicture';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,12 @@ const router = createBrowserRouter([
                 element: <EditProfile />,
                 action: EditProfile.action,
                 loader: EditProfile.loader,
+              },
+              {
+                path: 'upload-profile-picture',
+                element: <UploadProfilePicture />,
+                action: UploadProfilePicture.action,
+                loader: UploadProfilePicture.loader,
               },
             ],
           },
