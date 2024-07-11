@@ -21,7 +21,6 @@ export const ProfileDetail = ({
   onFollowToggle,
   isSelf,
 }: ProfileDetailProps) => {
-  const [isPictureHovered, setIsPictureHovered] = useState(false);
   const [btnText, setBtnText] = useState('');
   // set initial button text based on isFollowed prop
   //     ( when this was determined in initial useState call, would experience bug
@@ -40,14 +39,8 @@ export const ProfileDetail = ({
             <ProfileImage
               imageId={profile.image}
               className='flex justify-end items-end'
-              onMouseEnter={() => {
-                setIsPictureHovered(true);
-              }}
-              onMouseLeave={() => {
-                setIsPictureHovered(false);
-              }}
             >
-              {isSelf && isPictureHovered && (
+              {isSelf && (
                 <Link to={'upload-profile-picture'} className='fixed'>
                   <Button className=' rounded-full bg-blue-600 text-white mb-4 h-10 w-10 flex justify-center items-center'>
                     <FaEdit className='' />
