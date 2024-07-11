@@ -8,15 +8,9 @@ import {
 } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { useState } from 'react';
 
 const UploadProfilePictureForm = () => {
   const navigate = useNavigate();
-  const [file, setFile] = useState<File | null>(null);
-  const handleSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    setFile(e.target.files[0]);
-  };
 
   return (
     <Form
@@ -37,7 +31,13 @@ const UploadProfilePictureForm = () => {
           />
         </CardContent>
         <CardFooter className='flex justify-between'>
-          <Button variant='outline' onClick={() => navigate(-1)}>
+          <Button
+            variant='outline'
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(-1);
+            }}
+          >
             Cancel
           </Button>
           <Button type='submit'>Upload</Button>
