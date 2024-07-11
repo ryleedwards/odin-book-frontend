@@ -42,11 +42,9 @@ export const ProfileDetail = ({
               className='flex justify-end items-end'
               onMouseEnter={() => {
                 setIsPictureHovered(true);
-                console.log('hovered');
               }}
               onMouseLeave={() => {
                 setIsPictureHovered(false);
-                console.log('unhovered');
               }}
             >
               {isSelf && isPictureHovered && (
