@@ -14,14 +14,10 @@ export const updateProfilePicture = async (formData: FormData) => {
       body: formData,
     }
   );
-  console.log(reqToBackend);
   try {
     const response = await fetch(reqToBackend);
-    console.log('RESPONSE HERE');
-    console.log(response);
-    const result = await response.json();
-    console.log('Success:', result);
-    return true;
+    if (response.status === 200) return true;
+    return false;
   } catch (error) {
     console.error('Error:', error);
   }

@@ -34,8 +34,9 @@ const ProfileImage = ({
   img.resize(fill().width(250).height(250));
 
   return (
-    <div className='rounded-full h-48 w-48'>
+    <div className={`rounded-full h-48 w-48 ${className}`}>
       <AdvancedImage cldImg={img} className='rounded-full' />
+      {children}
     </div>
   );
 };

@@ -34,7 +34,6 @@ const action = async ({
   }
   const formData = await request.formData();
   const success = await updateProfilePicture(formData);
-  console.log(success);
 
   if (!success) {
     return { ok: false };
