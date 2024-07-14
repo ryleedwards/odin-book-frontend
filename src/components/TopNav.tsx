@@ -76,7 +76,9 @@ const TopNav = ({ links }: TopNavProps) => {
             <DropdownMenuContent>
               <DropdownMenuLabel>{user ? user.name : ''}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to={`/users/${user?.id}`}>Profile</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem onSelect={signOutClickHandler}>
                 Sign Out
               </DropdownMenuItem>

@@ -1,6 +1,7 @@
 import { Comment } from '@/types/Comment';
-import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
+import { Avatar, AvatarFallback } from './ui/avatar';
 import { Link } from 'react-router-dom';
+import CldImage from './CldImage';
 
 type CommentDisplayProps = {
   comment: Comment;
@@ -12,11 +13,14 @@ export const CommentDisplay = ({ comment, className }: CommentDisplayProps) => {
     <div className={`${className} flex items-center gap-2`}>
       <div>
         <Link to={`/users/${comment.authorId}`}>
-          <Avatar className=''>
-            <AvatarImage />
-            <AvatarFallback className='font-semibold bg-slate-300'>
-              {comment.author.name[0]}
-            </AvatarFallback>
+          <Avatar>
+            {comment.author.profile.image ? (
+              <CldImage publicId={comment.author.profile.image} />
+            ) : (
+              <AvatarFallback className='font-semibold bg-slate-300'>
+                {comment.author.name[0]}
+              </AvatarFallback>
+            )}
           </Avatar>
         </Link>
       </div>
