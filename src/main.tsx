@@ -10,6 +10,7 @@ import Posts from './routes/posts';
 import Post from './routes/post';
 import EditProfile from './routes/editProfile';
 import UploadProfilePicture from './routes/uploadProfilePicture';
+import Users from './routes/users';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
       {
         path: 'users',
         errorElement: <ErrorPage />,
+        element: <Users />,
+        loader: Users.loader,
         children: [
           {
             path: ':userId',
