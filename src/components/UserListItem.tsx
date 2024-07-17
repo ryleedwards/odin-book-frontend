@@ -1,17 +1,32 @@
 import { User } from '@/types/User';
 import UserAvatar from './UserAvatar';
-import { Button } from './ui/button';
 import { authProvider } from '@/auth/auth';
 import { Link } from 'react-router-dom';
 import UnfollowButton from './buttons/UnfollowButton';
+import FollowButton from './buttons/FollowButton';
+import { createFollow, deleteFollow } from '@/api/profile';
+import { useState } from 'react';
 
 type UserListItemProps = {
   user: User;
 };
 export const UserListItem = ({ user }: UserListItemProps) => {
-  const isFollowed = user.followers?.some(
-    (follower) => follower.followerId === authProvider.user?.id
+  const [isFollowed, setIsFollowed] = useState(
+    user.followers?.some(
+      (follower) => follower.followerId === authProvider.user?.id
+    )
   );
+
+  const handleFollowToggle = async () => {
+    if (isFollowed) {
+      await deleteFollow(user.id);
+      setIsFollowed(false);
+    } else {
+      await createFollow(user.id);
+      setIsFollowed(true);
+    }
+  };
+
   return (
     <div
       id='user-list-item'
@@ -31,9 +46,9 @@ export const UserListItem = ({ user }: UserListItemProps) => {
       </div>
 
       {isFollowed ? (
-        <UnfollowButton className='ml-auto' />
+        <UnfollowButton className='ml-auto' onClick={handleFollowToggle} />
       ) : (
-        <Button className='ml-auto bg-blue-600'>Follow</Button>
+        <FollowButton className='ml-auto' onClick={handleFollowToggle} />
       )}
     </div>
   );

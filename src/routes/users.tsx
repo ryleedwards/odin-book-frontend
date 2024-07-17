@@ -12,7 +12,6 @@ const loader = async ({ request }: { request: Request }) => {
 
 const Users = () => {
   const users = useLoaderData() as User[];
-  console.log(users);
   return <UserList users={users} />;
 };
 

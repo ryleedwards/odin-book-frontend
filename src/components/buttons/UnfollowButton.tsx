@@ -1,13 +1,28 @@
+import { useState } from 'react';
 import { Button } from '../ui/button';
 
-type UnfollowButtonProps = {
+interface UnfollowButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   className?: string;
-};
+  onClick?: React.MouseEventHandler;
+}
 
-const UnfollowButton = ({ className }: UnfollowButtonProps) => {
+const UnfollowButton = ({ className, onClick }: UnfollowButtonProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   return (
-    <Button variant={'outline'} className={className}>
-      Following
+    <Button
+      variant={isHovered ? 'destructive' : 'outline'}
+      className={`${className} w-24`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+    >
+      {isHovered ? 'Unfollow' : 'Following'}
     </Button>
   );
 };
