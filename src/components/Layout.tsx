@@ -15,8 +15,8 @@ const Layout = (props: Props) => {
       activeElement: <IoHome className='w-8 h-8 text-blue-600' />,
     },
     {
-      // Users
-      to: '/users',
+      // Users index page
+      to: '/users/browse',
       inactiveElement: <IoPeople className='w-8 h-8' />,
       activeElement: <IoPeople className='w-8 h-8 text-blue-600' />,
     },

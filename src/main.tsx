@@ -38,8 +38,6 @@ const router = createBrowserRouter([
       {
         path: 'users',
         errorElement: <ErrorPage />,
-        element: <Users />,
-        loader: Users.loader,
         children: [
           {
             path: ':userId',
@@ -66,6 +64,11 @@ const router = createBrowserRouter([
                 loader: UploadProfilePicture.loader,
               },
             ],
+          },
+          {
+            path: 'browse',
+            element: <Users />,
+            loader: Users.loader,
           },
         ],
       },

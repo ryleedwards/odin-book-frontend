@@ -1,4 +1,5 @@
-import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
+import CldImage from './CldImage';
+import { Avatar, AvatarFallback } from './ui/avatar';
 import { User } from '@/types/User';
 
 type UserAvatarProps = {
@@ -8,9 +9,14 @@ type UserAvatarProps = {
 const UserAvatar = ({ user }: UserAvatarProps) => {
   return (
     <>
-      <Avatar>
-        <AvatarImage />
-        <AvatarFallback>{user.name[0]}</AvatarFallback>
+      <Avatar className='bg-gray-300 justify-center items-center'>
+        {user.profile.image ? (
+          <CldImage publicId={user.profile.image} />
+        ) : (
+          <AvatarFallback className='font-semibold bg-slate-300'>
+            {user.name[0]}
+          </AvatarFallback>
+        )}
       </Avatar>
     </>
   );
