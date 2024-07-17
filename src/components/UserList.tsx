@@ -7,7 +7,7 @@ type UserListProps = {
 
 const UserList = ({ users }: UserListProps) => {
   return (
-    <div className='flex flex-col gap-2 max-w-md md:max-w-3xl'>
+    <div id='user-list' className='flex flex-col gap-2'>
       {users.map((user) => {
         return <UserListItem key={user.id} user={user} />;
       })}
