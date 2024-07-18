@@ -14,6 +14,7 @@ import { FaSearch, FaBell } from 'react-icons/fa';
 
 import Button from './Button';
 import { User } from '@/auth/auth';
+import UserAvatar from './UserAvatar';
 
 type Link = {
   to: string;
@@ -65,13 +66,7 @@ const TopNav = ({ links }: TopNavProps) => {
 
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Avatar>
-                <AvatarImage
-                  src='https://github.com/shadcn.png'
-                  alt='@shadcn'
-                />
-                <AvatarFallback className='bg-slate-300'>BW</AvatarFallback>
-              </Avatar>
+              <UserAvatar user={user} />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>{user ? user.name : ''}</DropdownMenuLabel>

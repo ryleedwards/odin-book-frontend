@@ -1,4 +1,6 @@
 import { getAccessToken } from '@/api/localStorage';
+import { fetchUser } from '@/api/user';
+import { Profile } from '@/types/Profile';
 
 export interface User {
   id: number;
@@ -8,6 +10,7 @@ export interface User {
   firstName: string | null;
   lastName: string | null;
   password: string;
+  profile?: Profile;
 }
 
 type AuthResponse = {
@@ -36,7 +39,8 @@ export const authProvider = {
       } catch (e) {
         console.error(e);
       }
-      this.user = data.user;
+      const userWithProfile = await fetchUser(data.user.id);
+      this.user = userWithProfile;
       this.isAuthenticated = true;
       return true;
     } else return false;
@@ -56,7 +60,8 @@ export const authProvider = {
 
       if (response.status === 200) {
         const data: AuthResponse = await response.json();
-        this.user = data.user;
+        const userWithProfile = await fetchUser(data.user.id);
+        this.user = userWithProfile;
         this.isAuthenticated = true;
         return true;
       } else {
