@@ -1,5 +1,20 @@
 import { getAuthHeaders } from '@/auth/auth';
 
+export const getUsers = async (view?: string | null) => {
+  const headers = getAuthHeaders();
+  const getUsersRequest = new Request(
+    `${import.meta.env.VITE_BACKEND_URL}/api/users?view=${view}`,
+    { method: 'GET', headers: headers }
+  );
+
+  const response = await fetch(getUsersRequest);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  const users = await response.json();
+  return users;
+};
+
 export const fetchUser = async (userId: number) => {
   const headers = getAuthHeaders();
   const request = new Request(

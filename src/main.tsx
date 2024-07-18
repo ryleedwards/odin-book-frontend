@@ -10,6 +10,7 @@ import Posts from './routes/posts';
 import Post from './routes/post';
 import EditProfile from './routes/editProfile';
 import UploadProfilePicture from './routes/uploadProfilePicture';
+import Users from './routes/users';
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
                 loader: UploadProfilePicture.loader,
               },
             ],
+          },
+          {
+            path: 'browse',
+            element: <Users />,
+            loader: Users.loader,
           },
         ],
       },
