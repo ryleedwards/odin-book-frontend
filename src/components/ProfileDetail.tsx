@@ -3,7 +3,6 @@ import ProfileImage from './ProfileImage';
 import Button from '@/components/Button';
 import { useEffect, useState } from 'react';
 import { Form, Link } from 'react-router-dom';
-import { FaEdit } from 'react-icons/fa';
 import EditProfilePictureButton from './buttons/EditProfilePictureButton';
 
 type ProfileDetailProps = {
