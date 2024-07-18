@@ -10,7 +10,7 @@ export interface User {
   firstName: string | null;
   lastName: string | null;
   password: string;
-  profile?: Profile;
+  profile: Profile;
 }
 
 type AuthResponse = {
