@@ -1,6 +1,5 @@
 import { Link, NavLink, useRouteLoaderData } from 'react-router-dom';
 import OdinBookLogo from './OdinbookLogo';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
