@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import { useEffect, useState } from 'react';
 import { Form, Link } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
+import EditProfilePictureButton from './buttons/EditProfilePictureButton';
 
 type ProfileDetailProps = {
   profile: Profile | null;
@@ -40,13 +41,7 @@ export const ProfileDetail = ({
               imageId={profile.image}
               className='flex justify-end items-end'
             >
-              {isSelf && (
-                <Link to={'upload-profile-picture'} className='fixed'>
-                  <Button className=' rounded-full bg-blue-600 text-white mb-4 h-10 w-10 flex justify-center items-center'>
-                    <FaEdit className='' />
-                  </Button>
-                </Link>
-              )}
+              {isSelf && <EditProfilePictureButton />}
             </ProfileImage>
           }
         </>
