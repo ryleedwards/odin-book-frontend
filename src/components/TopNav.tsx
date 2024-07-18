@@ -65,7 +65,7 @@ const TopNav = ({ links }: TopNavProps) => {
 
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <UserAvatar user={user} />
+              {user && <UserAvatar user={user} />}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>{user ? user.name : ''}</DropdownMenuLabel>
