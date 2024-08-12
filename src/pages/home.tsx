@@ -33,7 +33,7 @@ const Home = () => {
   return (
     <>
       <CreatePost className='md:max-w-2xl mb-10' />
-      <Feed className='md:max-w-2xl' posts={posts} />
+      <Feed isFromProfile={false} className='md:max-w-2xl' posts={posts} />
       <Outlet />
     </>
   );
