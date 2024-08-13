@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# Odinbook
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This app is the capstone project of [The Odin Project](https://www.theodinproject.com/), an open-source and community-driven curriculum for full stack development.
 
-Currently, two official plugins are available:
+## Navigation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Repos:
+  - [Front-end](https://github.com/ryleedwards/odin-book-frontend)
+  - [Back-end](https://github.com/ryleedwards/odin-book-api)
+- [Demo Deployment](https://odin-book-frontend-pearl.vercel.app/)
+  - Guest account creds:
+    - Username: guest1@odinbook.com
+    - Pw: password
 
-## Expanding the ESLint configuration
+## Technology Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+I deviated from the recommended MERN stack taught in TOP to take the opportunity to learn other technologies I saw utilized in other applications and communities. I did this in part out of preference, as well as an opportunity to break out of _tutorial hell_ and self-learn through practical use and documentation.
 
-- Configure the top-level `parserOptions` property like this:
+- Opted for use of TypeScript for strong typing
+- Replaced MongoDB with PostgreSQL for more exposure to relational databases
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Stack:
+  - Front-end:
+    - Vite + React + TypeScript
+    - [shadcn](https://ui.shadcn.com/) for pre-built components
+    - [tailwindcss](https://tailwindcss.com/) for CSS Utility Classes
+  - Back-end:
+    - Node.js + TypeScript
+    - [Express](https://expressjs.com/)
+    - [PostgreSQL](https://www.postgresql.org/)
+    - [Prisma ORM](https://www.prisma.io/)
+    - [Passport](https://www.passportjs.org/) for authentication middleware
+    - [Cloudinary](https://cloudinary.com/) for image hosting and a convenient Node.js SDK
+  - Deployment Infrastructure
+    - I opted for Vercel for my front-end and Railway for the back-end + db due to their ease-of-deployment and generous free-tier.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Conclusion
+
+I still have a fair amount of polish and new features I would like to implement in this project, but it has served me well as a foundation for understanding full-stack concepts.
